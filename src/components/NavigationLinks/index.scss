@@ -1,0 +1,24 @@
+.navigation-links {
+  text-align: center;
+  margin-top: 60px;
+  a {
+    padding: 23px 40px;
+    background: white;
+    color: rgba(140, 140, 140, 0.5);
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 22px;
+    border-radius: 34px;
+    margin-bottom: 25px;
+    display: block;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+    &.active {
+      background: #596EEF;
+      color: white;
+    }
+  }
+}

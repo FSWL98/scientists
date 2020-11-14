@@ -1,0 +1,58 @@
+.news-block {
+  margin-top: 40px;
+  h4 {
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+    font-size: 40px;
+    color: #464646;
+  }
+  &_container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  &_element {
+    background: #596EEF;
+    padding: 50px 40px;
+    max-width: 30%;
+    margin-bottom: 20px;
+    border-radius: 40px;
+    width: calc(30% - 80px);
+    text-decoration: none;
+    span {
+      display: block;
+      color: white;
+      font-weight: 600;
+      font-family: "Montserrat", sans-serif;
+      &.news-date {
+        // Стили для даты новости
+        font-size: 20px;
+      }
+      &.news-title {
+        font-size: 32px;
+        // Стили для заголовка новости
+      }
+      @media screen and (max-width: 1400px) {
+        &.news-date {
+          font-size: 16px;
+        }
+        &.news-title {
+          font-size: 26px;
+        }
+      }
+      @media screen and (max-width: 1024px) {
+        &.news-title {
+          font-size: 22px;
+        }
+      }
+      @media screen and (max-width: 600px) {
+        &.news-title {
+          font-size: 18px;
+        }
+        &.news-date {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+.side-block {
+  padding: 45px 10px 20px 10px;
+  width: 30%;
+  background: #E2EEFF;
+  min-width: 300px;
+  max-width: 500px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
+
+  &__logo {
+    margin: 0 auto;
+  }
+
+  &_scientists {
+    margin-top: 50px;
+    color: #8C8C8C;
+    background-color: white;
+    width: 50%;
+    min-width: 250px;
+    max-width: 335px;
+    padding: 20px 25px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+
+    &:before {
+      content: "";
+      border: 20px solid black;
+      position: absolute;
+      border-top: none;
+      height: 0;
+      border-right-color: transparent;
+      border-left-color: transparent;
+      border-bottom: 30px solid white;
+      margin-top: -40px;
+      margin-left: 15px;
+    }
+  }
+}

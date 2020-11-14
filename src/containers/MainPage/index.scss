@@ -1,0 +1,68 @@
+.main-page {
+  height: 100vh;
+  display: flex;
+  &_right {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    padding-right: 100px;
+    overflow: scroll;
+    .ymaps-2-1-77 {
+      &-inner-panes {
+        border: 2px solid #596EEF;
+        border-radius: 40px;
+      }
+      &-balloon {
+        &__content > *{
+          overflow: scroll !important;
+        }
+        .balloon-content {
+          margin-top: 20px;
+          max-width: 350px;
+          max-height: 300px;
+          overflow-y: scroll;
+          padding: 10px;
+          &_person {
+            display: flex;
+            padding: 10px 20px;
+            align-items: center;
+            background-color: #F6F6F6;
+            border-radius: 40px;
+            img {
+              margin-right: 20px;
+              width: 60px;
+              height: 60px;
+              border-radius: 50%;
+            }
+            .name {
+              font-size: 18px;
+              font-family: "Montserrat", sans-serif;
+              color: #464646;
+              font-weight: 600;
+              line-height: 24px;
+            }
+          }
+          &_info {
+            margin-top: 20px;
+            &__line {
+              display: flex;
+              align-items: center;
+              .image {
+                width: 24px;
+                height: 24px;
+                margin-right: 10px;
+              }
+              .location {
+                background: url("../../assets/location.svg") no-repeat center;
+              }
+              .expertise {
+                background: url("../../assets/expertise.svg") no-repeat center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

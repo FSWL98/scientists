@@ -1,0 +1,41 @@
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+button {
+  span {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    text-transform: none;
+  }
+  &.default {
+    background-color: #F6F6F6;
+    color: #8C8C8C;
+  }
+  &.primary {
+    background-color: #596EEF;
+    color: white;
+    &:hover {
+      background-color: #394ECF;
+      transition: background-color 0.3s;
+    }
+  }
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #596EEF;
+  border-radius: 8px;
+}
