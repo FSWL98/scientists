@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/scientist/static/css/main.f5a77890.chunk.css",
+    "main.js": "/scientist/static/js/main.98d3a3ac.chunk.js",
+    "main.js.map": "/scientist/static/js/main.98d3a3ac.chunk.js.map",
+    "runtime-main.js": "/scientist/static/js/runtime-main.0a34c5ba.js",
+    "runtime-main.js.map": "/scientist/static/js/runtime-main.0a34c5ba.js.map",
+    "static/js/2.a6f6942d.chunk.js": "/scientist/static/js/2.a6f6942d.chunk.js",
+    "static/js/2.a6f6942d.chunk.js.map": "/scientist/static/js/2.a6f6942d.chunk.js.map",
+    "index.html": "/scientist/index.html",
+    "precache-manifest.2e096db75dfb4d3447349fe78b25d0a6.js": "/scientist/precache-manifest.2e096db75dfb4d3447349fe78b25d0a6.js",
+    "service-worker.js": "/scientist/service-worker.js",
+    "static/css/main.f5a77890.chunk.css.map": "/scientist/static/css/main.f5a77890.chunk.css.map",
+    "static/js/2.a6f6942d.chunk.js.LICENSE.txt": "/scientist/static/js/2.a6f6942d.chunk.js.LICENSE.txt",
+    "static/media/Logo.svg": "/scientist/static/media/Logo.8a66c1e9.svg",
+    "static/media/index.scss": "/scientist/static/media/location.36010dcf.svg",
+    "static/media/logo.svg": "/scientist/static/media/logo.5d5d9eef.svg",
+    "static/media/map.png": "/scientist/static/media/map.bc601740.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0a34c5ba.js",
+    "static/js/2.a6f6942d.chunk.js",
+    "static/css/main.f5a77890.chunk.css",
+    "static/js/main.98d3a3ac.chunk.js"
+  ]
+}
