@@ -7,7 +7,7 @@ export const NavigationLinks = props => {
   return (
     <div className="navigation-links">
       <Link to="/scientists/cabinet" className={path === '/scientists/cabinet' ? 'active' : ''}>Личный кабинет</Link>
-      <Link to="/scientists" className={path === '/scientists' ? 'active' : ''}>Вернуться на главную</Link>
+      <Link to="/scientists/main" className={path === '/scientists/main' ? 'active' : ''}>Вернуться на главную</Link>
       <Link to="/scientists/messages" className={path === '/scientists/messages' ? 'active' : ''}>Сообщения</Link>
       <Link to="/scientists/cabinet/edit" className={path === '/scientists/cabinet/edit' ? 'active' : ''}>Редактировать профиль</Link>
     </div>

@@ -9,9 +9,10 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/scientists" component={MainPage} />
+        <Route exact path="/scientists/main" component={MainPage} />
         <Route exact path="/scientists/cabinet" component={MainPage} />
         <Route exact path="/scientists/news/:newsID" component={NewsItemPage} />
+        <Redirect from="/scientists" to="/scientists/main"/>
       </Switch>
     </BrowserRouter>
   );
