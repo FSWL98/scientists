@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/scientist/static/css/main.f5a77890.chunk.css",
-    "main.js": "/scientist/static/js/main.871d7ebd.chunk.js",
-    "main.js.map": "/scientist/static/js/main.871d7ebd.chunk.js.map",
-    "runtime-main.js": "/scientist/static/js/runtime-main.0a34c5ba.js",
-    "runtime-main.js.map": "/scientist/static/js/runtime-main.0a34c5ba.js.map",
-    "static/js/2.1df24b32.chunk.js": "/scientist/static/js/2.1df24b32.chunk.js",
-    "static/js/2.1df24b32.chunk.js.map": "/scientist/static/js/2.1df24b32.chunk.js.map",
-    "index.html": "/scientist/index.html",
-    "precache-manifest.94c1473db676a595b67e259f9beab0cd.js": "/scientist/precache-manifest.94c1473db676a595b67e259f9beab0cd.js",
-    "service-worker.js": "/scientist/service-worker.js",
-    "static/css/main.f5a77890.chunk.css.map": "/scientist/static/css/main.f5a77890.chunk.css.map",
-    "static/js/2.1df24b32.chunk.js.LICENSE.txt": "/scientist/static/js/2.1df24b32.chunk.js.LICENSE.txt",
-    "static/media/Logo.svg": "/scientist/static/media/Logo.8a66c1e9.svg",
-    "static/media/index.scss": "/scientist/static/media/location.36010dcf.svg",
-    "static/media/logo.svg": "/scientist/static/media/logo.5d5d9eef.svg",
-    "static/media/map.png": "/scientist/static/media/map.bc601740.png"
+    "main.css": "/scientists/static/css/main.ca044207.chunk.css",
+    "main.js": "/scientists/static/js/main.79d909b8.chunk.js",
+    "main.js.map": "/scientists/static/js/main.79d909b8.chunk.js.map",
+    "runtime-main.js": "/scientists/static/js/runtime-main.4b2e006b.js",
+    "runtime-main.js.map": "/scientists/static/js/runtime-main.4b2e006b.js.map",
+    "static/js/2.1df24b32.chunk.js": "/scientists/static/js/2.1df24b32.chunk.js",
+    "static/js/2.1df24b32.chunk.js.map": "/scientists/static/js/2.1df24b32.chunk.js.map",
+    "index.html": "/scientists/index.html",
+    "precache-manifest.6a779fa5e09b49d7fca75f11642166a1.js": "/scientists/precache-manifest.6a779fa5e09b49d7fca75f11642166a1.js",
+    "service-worker.js": "/scientists/service-worker.js",
+    "static/css/main.ca044207.chunk.css.map": "/scientists/static/css/main.ca044207.chunk.css.map",
+    "static/js/2.1df24b32.chunk.js.LICENSE.txt": "/scientists/static/js/2.1df24b32.chunk.js.LICENSE.txt",
+    "static/media/Logo.svg": "/scientists/static/media/Logo.8a66c1e9.svg",
+    "static/media/index.scss": "/scientists/static/media/location.36010dcf.svg",
+    "static/media/logo.svg": "/scientists/static/media/logo.5d5d9eef.svg",
+    "static/media/map.png": "/scientists/static/media/map.bc601740.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.0a34c5ba.js",
+    "static/js/runtime-main.4b2e006b.js",
     "static/js/2.1df24b32.chunk.js",
-    "static/css/main.f5a77890.chunk.css",
-    "static/js/main.871d7ebd.chunk.js"
+    "static/css/main.ca044207.chunk.css",
+    "static/js/main.79d909b8.chunk.js"
   ]
 }
