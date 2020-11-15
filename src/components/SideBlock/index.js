@@ -5,6 +5,7 @@ import './index.scss';
 import {NavigationLinks} from "../NavigationLinks";
 
 export const SideBlock = props => {
+  console.log(props);
   return (
     <div className="side-block">
       <img src={logo} alt="Логотип" className="side-block__logo"/>

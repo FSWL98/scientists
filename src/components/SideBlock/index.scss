@@ -1,15 +1,13 @@
 .side-block {
   padding: 45px 10px 20px 10px;
-  width: 30%;
   background: #E2EEFF;
-  min-width: 300px;
-  max-width: 500px;
+  width: calc(27% - 20px);
   align-self: stretch;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   overflow: scroll;
-
+  height: 100%;
   &__logo {
     margin: 0 auto;
   }

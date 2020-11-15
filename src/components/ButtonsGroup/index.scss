@@ -1,7 +1,7 @@
 .buttons-group {
   align-self: flex-end;
   padding: 40px 0 20px 10px;
-  button {
+  button, a {
     img {
       height: 24px;
       margin-right: 7px;
@@ -15,10 +15,26 @@
       padding: 15px 18px;
       margin-right: 15px;
     }
-    &:last-of-type {
-      margin-right: 0;
-    }
     padding: 20px 35px;
     border-radius: 30px;
+  }
+  a {
+    background-color: #F6F6F6;
+    color: #8C8C8C;
+    text-decoration: none;
+    display: inline-flex;
+    vertical-align: top;
+    &:hover {
+      background-color: #d6d6d6;
+      transition: background-color 0.3s;
+    }
+    &.primary {
+      background-color: #596EEF;
+      color: white;
+      &:hover {
+        background-color: #394ECF;
+        transition: background-color 0.3s;
+      }
+    }
   }
 }

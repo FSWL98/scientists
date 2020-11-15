@@ -8,17 +8,21 @@
   }
   &_container {
     display: flex;
-    justify-content: space-between;
+    justify-content: stretch;
     flex-wrap: wrap;
   }
   &_element {
     background: #596EEF;
     padding: 50px 40px;
-    max-width: 30%;
+    margin-right: 20px;
     margin-bottom: 20px;
     border-radius: 40px;
-    width: calc(30% - 80px);
     text-decoration: none;
+    flex-grow: 2;
+    width: calc((100% - 40px)/3 - 80px);
+    &:nth-of-type(3n) {
+      margin-right: 0;
+    }
     span {
       display: block;
       color: white;
@@ -26,10 +30,10 @@
       font-family: "Montserrat", sans-serif;
       &.news-date {
         // Стили для даты новости
-        font-size: 20px;
+        font-size: 25px;
       }
       &.news-title {
-        font-size: 32px;
+        font-size: 45px;
         // Стили для заголовка новости
       }
       @media screen and (max-width: 1400px) {
