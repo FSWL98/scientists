@@ -46,6 +46,11 @@
     margin-top: 20px;
     padding: 16px 23px;
     border-radius: 25px;
+    &.Mui-disabled.MuiButton-root {
+      background: #596eef;
+      color: white;
+      opacity: 0.5;
+    }
   }
 }
 

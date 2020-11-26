@@ -1,0 +1,177 @@
+.info-block {
+  padding: 20px 60px;
+  section {
+    margin-bottom: 40px;
+  }
+  .section-title {
+    color: #464646;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px;
+    display: block;
+    margin-bottom: 20px;
+  }
+  &_person {
+    .section-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      & > * {
+        width: 24%;
+        margin-right: 14%;
+        margin-bottom: 25px;
+        &:nth-of-type(3n) {
+          margin-right: 0;
+        }
+        input {
+          color: #464646;
+          font-family: "Montserrat", sans-serif;
+          font-weight: 600;
+        }
+        label {
+          margin-top: -12px;
+          color: #8c8c8c;
+          opacity: 0.5;
+          font-weight: 600;
+          font-family: "Montserrat", sans-serif;
+          &[data-shrink='true'] {
+            margin-top: -5px;
+          }
+        }
+      }
+    }
+  }
+  &_main {
+    .section-content {
+      display: flex;
+      flex-wrap: wrap;
+      .item {
+        width: 40%;
+        margin-right: 6%;
+        display: flex;
+        margin-bottom: 15px;
+        align-items: center;
+        padding-bottom: 7px;
+        border-bottom: 1px solid #E2EEFF;
+        img {
+          min-width: 40px;
+          max-width: 40px;
+          margin-right: 10px;
+        }
+      }
+      .MuiGrid-container {
+        width: 30%;
+        margin-right: 15%;
+        margin-bottom: 25px;
+        img {
+          width: 40px;
+        }
+        .MuiInputBase-root {
+          width: 250px;
+          legend {
+            visibility: visible;
+            color: rgba(140, 140, 140, 0.5);
+            font-family: "Montserrat", sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            span {
+              margin-top: -10px;
+              background: white;
+            }
+          }
+        }
+        .MuiTextField-root {
+          label {
+            color: rgba(140, 140, 140, 0.5);
+            font-family: "Montserrat", sans-serif;
+            font-weight: 600;
+          }
+          legend {
+            visibility: hidden;
+          }
+        }
+      }
+    }
+  }
+  &_main-results {
+    .MuiTextField-root {
+      width: 100%;
+      max-width: 800px;
+      background-color: #e2eeff;
+      textarea {
+        font-weight: 500;
+        color: #464646;
+        font-family: "Montserrat", sans-serif;
+        padding: 10px;
+      }
+    }
+  }
+  &_key-words {
+    .tip {
+      display: block;
+      opacity: 0.7;
+    }
+    .keywords {
+      width: 40%;
+      min-width: 200px;
+      span {
+        color: #596eef;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        padding-right: 20px;
+      }
+    }
+  }
+  &_publications {
+    .section-content {
+      width: 100%;
+      max-width: 800px;
+      background: #e2eeff;
+      padding: 15px;
+      .publication {
+        background: white;
+        height: 60px;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px 0 10px;
+        margin-bottom: 15px;
+        align-items: center;
+        .MuiInputBase-root:after, .MuiInputBase-root:before {
+          display: none;
+        }
+        input {
+          font-family: "Montserrat", sans-serif;
+        }
+        img {
+          border-radius: 50%;
+          background: #596eef;
+          width: 20px;
+          cursor: pointer;
+        }
+      }
+      .new-publication {
+        cursor: pointer;
+        background: white;
+        text-align: center;
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          border-radius: 50%;
+          background: #596eef;
+          width: 24px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  button {
+    width: 300px;
+    border-radius: 40px;
+    padding: 20px;
+    font-size: 18px;
+    font-family: "Montserrat", sans-serif;
+  }
+}

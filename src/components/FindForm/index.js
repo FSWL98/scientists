@@ -6,12 +6,14 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import { regions } from './consts';
+import { regions, degrees, majors } from './consts';
 
 
 export const FindForm = () => {
   const [currentDistrict, setDistrict] = useState({});
   const [currentRegion, setRegion] = useState({});
+  const [currentDegree, setDegree] = useState({});
+  const [currentMajor, setMajor] = useState({});
 
   return (
       <form className="find-form">
@@ -20,13 +22,13 @@ export const FindForm = () => {
           <Select
             labelId="district"
             id="district"
-            value={currentDistrict.name}
+            value={currentDistrict.code}
             onChange={ev => {
-              setDistrict(regions.find(el => el.name === ev.target.value));
+              setDistrict(regions.find(el => el.code === ev.target.value));
               setRegion({});
             }}
           >
-            {regions.map(el => <MenuItem value={el.name}>{el.name}</MenuItem>)}
+            {regions.map(el => <MenuItem value={el.code} key={el.code}>{el.name}</MenuItem>)}
           </Select>
         </FormControl>
         <FormControl className="region" variant="outlined">
@@ -36,9 +38,10 @@ export const FindForm = () => {
             id="region"
             value={currentRegion.id || ''}
             onChange={ev => setRegion(currentDistrict.regions.find(el => el.id === ev.target.value))}
+            disabled={!currentDistrict.code}
           >
             {currentDistrict.regions && currentDistrict.regions.map(el => (
-              <MenuItem value={el.id}>{el.name}</MenuItem>
+              <MenuItem value={el.id} key={el.id}>{el.name}</MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -47,27 +50,32 @@ export const FindForm = () => {
           <Select
             labelId="specialty"
             id="specialty"
+            value={currentMajor.code || ''}
+            onChange={ev => setMajor(majors.find(el => el.code === ev.target.value))}
           >
-            <MenuItem value={10}>Решала</MenuItem>
-            <MenuItem value={20}>Босс</MenuItem>
-            <MenuItem value={30}>шестерка</MenuItem>
+            {majors.map(el => <MenuItem value={el.code} key={el.code}>{el.name}</MenuItem>)}
           </Select>
         </FormControl>
         <FormControl className="degree" variant="outlined">
           <InputLabel id="degree">Введите уч.степень</InputLabel>
           <Select
             labelId="degree"
-            id="degree"
+            value={currentDegree.code || ''}
+            onChange={ev => setDegree(degrees.find(el => el.code === ev.target.value))}
           >
-            <MenuItem value={10}>Майнд босс</MenuItem>
-            <MenuItem value={20}>Пень</MenuItem>
-            <MenuItem value={30}>Ни рыба, ни мясо</MenuItem>
+            {degrees.map(el => <MenuItem value={el.code} key={el.code}>{el.name}</MenuItem>)}
           </Select>
         </FormControl>
         <p className="more-search">
           *Для расширенного поиска авторизируйтесь
         </p>
-        <Button variant="contained" className="primary">Поиск исследователей</Button>
+        <Button
+          variant="contained"
+          className="primary"
+          disabled={!currentDistrict.code && !currentMajor.code && !currentDegree.code}
+        >
+          Поиск исследователей
+        </Button>
       </form>
   );
 };

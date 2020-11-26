@@ -2,6 +2,8 @@ export const regions =
 [
   {
     name: "Центральный Федеральный Округ",
+    code: 'cfo',
+    coordinates: [54.873745, 38.064718],
     regions: [
       {
         id: 0,
@@ -79,6 +81,8 @@ export const regions =
   },
   {
     name: "Северо-Западный Федеральный Округ",
+    code: 'szfo',
+    coordinates: [61.469749, 36.498137],
     regions: [
       {
         id: 0,
@@ -128,6 +132,8 @@ export const regions =
   },
   {
     name: "Южный Федеральный Округ",
+    code: 'yfo',
+    coordinates: [48.622558, 43.166151],
     regions: [
       {
         id: 0,
@@ -165,6 +171,8 @@ export const regions =
   },
   {
     name: "Северо-Кавказский Федеральный Округ",
+    code: 'skfo',
+    coordinates: [43.898977, 44.693045],
     regions: [
       {
         id: 0,
@@ -198,6 +206,8 @@ export const regions =
   },
   {
     name: "Приволжский Федеральный Округ",
+    code: 'pfo',
+    coordinates: [55.485362, 51.524283],
     regions: [
       {
         id: 0,
@@ -259,6 +269,8 @@ export const regions =
   },
   {
     name: "Уральский Федеральный Округ",
+    code: 'urfo',
+    coordinates: [60.519886, 64.350447],
     regions: [
       {
         id: 0,
@@ -288,6 +300,8 @@ export const regions =
   },
   {
     name: "Сибирский Федеральный Округ",
+    code: 'sfo',
+    coordinates: [61.833048, 96.962463],
     regions: [
       {
         id: 0,
@@ -333,6 +347,8 @@ export const regions =
   },
   {
     name: "Дальневосточный Федеральный Округ",
+    code: 'dfo',
+    coordinates: [63.629508, 124.131856],
     regions: [
       {
         id: 0,
@@ -379,5 +395,27 @@ export const regions =
         name: "Чукотский автономный округ"
       }
     ]
+  }
+];
+
+export const degrees = [
+  {
+    code: 'kandidat',
+    name: 'Кандидат наук',
+  },
+  {
+    code: 'doctor',
+    name: 'Доктор наук'
+  }
+];
+
+export const majors = [
+  {
+    code: 'korpcy',
+    name: 'Коррекционная психология',
+  },
+  {
+    code: 'korped',
+    name: 'Коррекционная педагокика',
   }
 ];

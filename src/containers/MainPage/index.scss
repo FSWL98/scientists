@@ -9,5 +9,8 @@
     padding: 0 100px 0 40px;
     overflow-y: overlay;
     vertical-align: top;
+    @media screen and (max-width: 1260px){
+      width: calc(100% - 482px);
+    }
   }
 }

@@ -1,15 +1,47 @@
 .ymaps-2-1-77 {
-  &-b-cluster-tabs__item-header {
-    display: none !important;
+  &-b-cluster-tabs {
+    width: 100% !important;
+    &__section_type_nav {
+      width: 180px !important;
+    }
+    &__item-header {
+      display: none !important;
+    }
+    &__menu-item {
+      margin-right: 5px;
+      border-radius: 20px !important;
+      &-text {
+        color: #cbcbcb !important;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 6px 20px;
+      }
+      &_current_yes {
+        background: #596eef !important;
+        border-radius: 20px !important;
+        transition: background-color 0.3s;
+        * {
+          color: white !important;
+        }
+      }
+    }
   }
   &-inner-panes {
     border: 2px solid #596EEF;
     border-radius: 40px;
   }
   &-balloon {
-    &__content > *{
-      overflow-y: scroll !important;
-      overflow-x: hidden !important;
+    width: 600px;
+    &__content {
+      width: 580px !important;
+      & > *{
+        overflow-y: scroll !important;
+        overflow-x: hidden !important;
+        width: 580px !important;
+      }
+      &:first-child {
+        width: 580px !important;
+      }
     }
     .balloon-content {
       max-width: 350px;
@@ -42,6 +74,8 @@
           display: flex;
           align-items: center;
           .image {
+            min-width: 24px;
+            min-height: 24px;
             width: 24px;
             height: 24px;
             margin-right: 10px;
