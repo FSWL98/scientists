@@ -80,6 +80,23 @@ export const InfoBlock = props => {
     });
   };
 
+  const handleKeyWordsChange = value => {
+    setInfo({
+      ...info,
+      keyWords: value.split('\n'),
+    });
+  };
+  const handlePublicationChange = (value, id) => {
+    setInfo({
+      ...info,
+      publications: info.publications.map((el, index) => {
+        if (index === id)
+          return value;
+        return el;
+      })
+    });
+  };
+
   if (!info.Bigregion)
     return '';
 
@@ -319,7 +336,7 @@ export const InfoBlock = props => {
               multiline
               rows={3}
               rowsMax={3}
-              onChange={(ev) => console.log(ev.target.value.split('\n'))}
+              onChange={ev => handleKeyWordsChange(ev.target.value)}
             />
           </>
         )}
@@ -338,6 +355,7 @@ export const InfoBlock = props => {
                 value={el}
                 id={`${index}`}
                 disabled={!props.edit}
+                onChange={ev => handlePublicationChange(ev.target.value, index)}
               />
               {props.edit && (
                 <img src={remove} alt="clear" onClick={() => deletePublication(index)}/>
