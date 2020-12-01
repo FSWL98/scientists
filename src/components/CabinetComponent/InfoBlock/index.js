@@ -41,7 +41,10 @@ export const InfoBlock = props => {
     image: undefined,
   });
   useEffect(() => {
-    setInfo(props.info);
+    setInfo({
+      ...props.info,
+      publication: props.info.publication.split(';'),
+    });
   }, [props.edit]);
 
   const handleBigRegionChange = value => {
@@ -69,14 +72,14 @@ export const InfoBlock = props => {
   const deletePublication = index => {
     setInfo({
       ...info,
-      publications: info.publications.filter((el, ind) => ind !== index),
+      publication: info.publication.filter((el, ind) => ind !== index),
     });
   };
 
   const addPublication = () => {
     setInfo({
       ...info,
-      publications: [...info.publications, ''],
+      publication: [...info.publication, ''],
     });
   };
 
@@ -89,7 +92,7 @@ export const InfoBlock = props => {
   const handlePublicationChange = (value, id) => {
     setInfo({
       ...info,
-      publications: info.publications.map((el, index) => {
+      publication: info.publication.map((el, index) => {
         if (index === id)
           return value;
         return el;
@@ -332,7 +335,7 @@ export const InfoBlock = props => {
           <>
             <span className="tip">Каждое ключевое слово нужно указывать с новой строки</span>
             <TextField
-              value={info.keyWords.join('\n')}
+              value={info.keyWords.split(';').join('\n')}
               multiline
               rows={3}
               rowsMax={3}
@@ -342,14 +345,14 @@ export const InfoBlock = props => {
         )}
         {!props.edit && (
           <div className="keywords">
-            {info.keyWords.map(el => <span>#{el}</span>)}
+            {info.keyWords.split(';').map(el => <span>#{el}</span>)}
           </div>
         )}
       </section>
       <section className="info-block_publications">
         <span className="section-title">Публикации</span>
         <div className="section-content">
-          {info.publications.map((el, index) => (
+          {info.publication.length > 0 && info.publication.map((el, index) => (
             <div className="publication">
               <TextField
                 value={el}

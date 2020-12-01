@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Clusterer, Map, Placemark, withYMaps} from "react-yandex-maps";
 import './index.scss';
+import {baseURL} from "../../services/baseURL";
 
 const YandexMap = props => {
   const [points, setPoints] = useState([]);
@@ -12,7 +13,7 @@ const YandexMap = props => {
     //   .then(response =>
     //     setCoords(response.geoObjects.get(0).geometry.getCoordinates())
     //   );
-    const request = fetch(`http://nikelstone.pythonanywhere.com/api/v1/getpoints`, {
+    const request = fetch(`${baseURL}/api/v1/getpoints/`, {
       method: 'GET',
       mode: 'cors',
     }).then(response => {

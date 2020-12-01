@@ -3,13 +3,14 @@ import './index.scss';
 import logo from '../../assets/Logo.svg';
 import { ButtonsGroup } from "../../components/ButtonsGroup";
 import { Link } from "react-router-dom";
+import {baseURL} from "../../services/baseURL";
 
 export const NewsItemPage = props => {
   const [item, setItem] = useState({});
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    const request = fetch(`http://nikelstone.pythonanywhere.com/api/v1/news/${props.match.params.newsID}/`, {
+    const request = fetch(`${baseURL}/api/v1/news/${props.match.params.newsID}/`, {
       method: 'GET',
       mode: 'cors',
     }).then(response => {

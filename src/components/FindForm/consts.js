@@ -400,7 +400,7 @@ export const regions =
 
 export const degrees = [
   {
-    code: 'kandidat',
+    code: 'kandNauk',
     name: 'Кандидат наук',
   },
   {
