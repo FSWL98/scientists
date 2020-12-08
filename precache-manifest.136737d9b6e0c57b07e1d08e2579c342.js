@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fad59acc025b2dd6de6d27f5adb68273",
+    "revision": "40fc02677ee6f39776c8ff7c3892b312",
     "url": "/scientists/index.html"
   },
   {
-    "revision": "acbe86ec65f540565329",
+    "revision": "009b8d817a1ad113fc3f",
     "url": "/scientists/static/css/2.1bce3852.chunk.css"
   },
   {
-    "revision": "f7c51eadd9ea89f2a2a4",
-    "url": "/scientists/static/css/main.f67f14ab.chunk.css"
+    "revision": "903f7dced40bb3dae45b",
+    "url": "/scientists/static/css/main.3fc5332f.chunk.css"
   },
   {
-    "revision": "acbe86ec65f540565329",
-    "url": "/scientists/static/js/2.e612c26c.chunk.js"
+    "revision": "009b8d817a1ad113fc3f",
+    "url": "/scientists/static/js/2.59931d6e.chunk.js"
   },
   {
     "revision": "0dc713a05373e5c9a88cb999f31ae6e4",
-    "url": "/scientists/static/js/2.e612c26c.chunk.js.LICENSE.txt"
+    "url": "/scientists/static/js/2.59931d6e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "f7c51eadd9ea89f2a2a4",
-    "url": "/scientists/static/js/main.d8bb5eb9.chunk.js"
+    "revision": "903f7dced40bb3dae45b",
+    "url": "/scientists/static/js/main.9959012f.chunk.js"
   },
   {
     "revision": "a1e6165a7dddf1bc9ccc",
