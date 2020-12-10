@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "40fc02677ee6f39776c8ff7c3892b312",
+    "revision": "120f939718a22af2ea44b7f8e4bcd189",
     "url": "/scientists/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/scientists/static/css/2.1bce3852.chunk.css"
   },
   {
-    "revision": "903f7dced40bb3dae45b",
-    "url": "/scientists/static/css/main.3fc5332f.chunk.css"
+    "revision": "74ee7748c0fd124da7d1",
+    "url": "/scientists/static/css/main.536c2222.chunk.css"
   },
   {
     "revision": "009b8d817a1ad113fc3f",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/scientists/static/js/2.59931d6e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "903f7dced40bb3dae45b",
-    "url": "/scientists/static/js/main.9959012f.chunk.js"
+    "revision": "74ee7748c0fd124da7d1",
+    "url": "/scientists/static/js/main.886b6773.chunk.js"
   },
   {
     "revision": "a1e6165a7dddf1bc9ccc",
@@ -42,6 +42,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "9a0af33b4cf4568f92b098900f64e6fe",
     "url": "/scientists/static/media/degree.9a0af33b.svg"
+  },
+  {
+    "revision": "f374bd508c9ab17f7b174c85022ff564",
+    "url": "/scientists/static/media/email.f374bd50.svg"
   },
   {
     "revision": "dc59d6aead46259243b0e22182fe807c",
@@ -70,6 +74,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "eefaa0f9380ec7271986da9721321f5e",
     "url": "/scientists/static/media/pablita-finance 1.eefaa0f9.png"
+  },
+  {
+    "revision": "12f88cec737e282d7f69a59657bec019",
+    "url": "/scientists/static/media/phone.12f88cec.svg"
   },
   {
     "revision": "b083ceeb9cbe298ecfc2997a3eb7e635",
