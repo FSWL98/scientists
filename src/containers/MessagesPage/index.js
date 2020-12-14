@@ -22,24 +22,24 @@ export const MessagesPage = props => {
   }
 
   const sendMessage = msg => {
-    socket.send({
+    socket.send(JSON.stringify({
       command: 'send',
       room: 1,
       message: msg,
-    });
+    }));
   }
 
   useEffect(() => {
     socket = new WebSocket(`${wsURL}/chat/1/`);
     socket.onopen = () => {
-      socket.send({
+      socket.send(JSON.stringify({
         command: 'setuser',
         user: AuthService.getUserLocal().id
-      });
-      socket.send({
+      }));
+      socket.send(JSON.stringify({
         command: 'join',
         room: 1
-      });
+      }));
       console.log('new connection is opened');
     }
     socket.onmessage = e => {
