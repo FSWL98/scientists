@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './index.scss';
 import logo from '../../assets/logo512.png';
-import {Link} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {InfoBlock} from "./InfoBlock";
 import AuthService from "../../services/AuthService";
 import scientistsService from "../../services/scientistsService";
@@ -12,25 +12,44 @@ export const CabinetComponent = props => {
     person: null,
     isLogged: AuthService.getAuthToken(),
   });
+  const history = useHistory();
   useEffect(() => {
     setDataState({
       ...dataState,
       isLoading: true,
     });
-    if (AuthService.getAuthToken()) {
-      scientistsService.getScientist(1)
+    if (!AuthService.getAuthToken()) {
+      setDataState({
+        person: null,
+        isLoading: false,
+        isLogged: false
+      });
+    }
+    else if (!props.match.params.id && !props.match.path.includes('edit')) {
+      history.push(`/scientists/profile/${AuthService.getUserLocal().id}`);
+    }
+    else {
+      scientistsService.getScientist(props.match.params.id || AuthService.getUserLocal().id)
         .then(response => {
           setDataState({
             ...dataState,
             person: response,
             isLoading: false,
+            isLogged: true
           })
         })
     }
-  }, []);
+  }, [props]);
 
   if (dataState.isLoading)
     return '';
+
+  if (!dataState.isLogged)
+    return (
+      <section className="cabinet">
+        <p className="unauthorized-text">Вы не авторизованы. Пожалуйста, войдите в систему, используя кнопку в верхнем меню навигации.</p>
+      </section>
+    );
 
   return (
     <section className="cabinet">
@@ -45,19 +64,19 @@ export const CabinetComponent = props => {
               {dataState.person.email}
             </span>
             <span className="elib">
-              SPIN РИНЦ: <a href={dataState.person.elib_link} target="_blank">{dataState.person.elibID}</a>
+              SPIN РИНЦ: <a href={dataState.person.elib_link} target="_blank">{dataState.person.elibID || 'Не указан'}</a>
             </span>
           </div>
           <div className="contacts">
             <Link to={`/scientists/message/${dataState.person.id}`}>Написать сообщение</Link>
-            <a href={`tel:${dataState.person.phone_number}`} className="phone">
-              {dataState.person.phone_number}
+            <a href={`tel:${dataState.person.phone}`} className="phone">
+              {dataState.person.phone || 'Телефон не указан'}
             </a>
           </div>
           <div className="indexes">
             <div className="indexes_item">
               <span className="number">
-                {dataState.person.h_Scopus}
+                {dataState.person.h_Scopus || '-'}
               </span>
               <a className="name" href={dataState.person.scopusLink} target="_blank">
                 Scopus
@@ -65,7 +84,7 @@ export const CabinetComponent = props => {
             </div>
             <div className="indexes_item">
               <span className="number">
-                {dataState.person.h_WebOfScience}
+                {dataState.person.h_WebOfScience || '-'}
               </span>
               <a className="name" href={dataState.person.WoSLink} target="_blank">
                 Web of Science

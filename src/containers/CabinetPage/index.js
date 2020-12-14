@@ -10,7 +10,7 @@ export const CabinetPage = props => {
       <SideBlock page='cabinet' match={props.match} />
       <div className="main-page_right">
         <ButtonsGroup />
-        <CabinetComponent edit={props.match.path.includes('/cabinet/edit')}/>
+        <CabinetComponent edit={props.match.path.includes('/profile/edit')} match={props.match}/>
       </div>
     </div>
   );

@@ -1,8 +1,12 @@
 .navigation-links {
   text-align: center;
   margin-top: 60px;
+  width: 100%;
   a {
-    padding: 23px 40px;
+    width: 80%;
+    min-width: 170px;
+    max-width: 255px;
+    padding: 6% 40px;
     background: white;
     color: rgba(140, 140, 140, 0.5);
     font-weight: 600;
@@ -11,8 +15,14 @@
     font-size: 18px;
     line-height: 22px;
     border-radius: 34px;
-    margin-bottom: 25px;
+    margin: 0 auto 25px auto;
     display: block;
+    @media screen and (max-width: 1600px) {
+      padding: 6% 35px;
+    }
+    @media screen and (max-width: 1400px) {
+      padding: 6% 28px;
+    }
     &:last-of-type {
       margin-bottom: 0;
     }

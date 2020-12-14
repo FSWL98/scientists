@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import location from '../../../assets/location.svg';
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { regions, degrees, majors } from '../../FindForm/consts'
+import { regions, degrees, majors, titles } from '../../FindForm/consts'
 import degree from '../../../assets/degree.svg';
 import job from '../../../assets/job.svg';
 import add from '../../../assets/add.svg';
@@ -13,7 +13,15 @@ import Select from "@material-ui/core/Select";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
+import ReactCrop from 'react-image-crop';
+import { useDropzone } from "react-dropzone";
 import './index.scss';
+import Dialog from "@material-ui/core/Dialog";
+import 'react-image-crop/dist/ReactCrop.css';
+import Checkbox from "@material-ui/core/Checkbox";
+import {FormControl} from "@material-ui/core";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import scientistsService from "../../../services/scientistsService";
 
 export const InfoBlock = props => {
   const [info, setInfo] = useState({
@@ -23,14 +31,14 @@ export const InfoBlock = props => {
     patronymic: undefined,
     surname: undefined,
     email: undefined,
-    phone_number: undefined,
+    phone: undefined,
     elib_link: undefined,
     elibID: undefined,
     scopusLink: undefined,
     h_Scopus: undefined,
     WoSLink: undefined,
     h_WebOfScience: undefined,
-    publications: undefined,
+    publication: undefined,
     job_place: undefined,
     position: undefined,
     academicDegree: undefined,
@@ -39,11 +47,28 @@ export const InfoBlock = props => {
     mainResults: undefined,
     keyWords: undefined,
     image: undefined,
+    newImageFile: undefined,
+    hide_email: true,
+    hide_phone: true,
   });
+  const [cropModal, setCropModal] = useState({
+    image: null,
+    open: false,
+    crop: {
+      unit: 'px',
+      width: 128,
+      aspect: 1 / 1,
+      minWidth: 128,
+      maxWidth: 512,
+    }
+  })
+  const [imageRef, setImageRef] = useState(null);
+  const [currentCropped, setCurrentCropped] = useState(null);
+  const [isLoading, setLoading] = useState(false);
   useEffect(() => {
     setInfo({
       ...props.info,
-      publication: props.info.publication.split(';'),
+      publication: props.info.publication.split('&^')
     });
   }, [props.edit]);
 
@@ -86,7 +111,7 @@ export const InfoBlock = props => {
   const handleKeyWordsChange = value => {
     setInfo({
       ...info,
-      keyWords: value.split('\n'),
+      keyWords: value,
     });
   };
   const handlePublicationChange = (value, id) => {
@@ -100,16 +125,200 @@ export const InfoBlock = props => {
     });
   };
 
-  if (!info.Bigregion)
+  const handleImageLoaded = image => {
+    setImageRef(image);
+    return false;
+  }
+
+  const makeClientCrop = crop => {
+    if (imageRef && crop.width && crop.height) {
+      getCroppedImage(imageRef, crop).then(response => setCurrentCropped(response));
+    }
+  }
+
+  const getCroppedImage = (image, crop) => {
+    const canvas = document.createElement('canvas');
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext('2d');
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+
+    return new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) {
+          return;
+        }
+        blob.name = 'avatar.jpeg';
+        resolve(blob);
+      }, 'image/*');
+    })
+
+  }
+
+  const handleCropComplete = crop => {
+    makeClientCrop(crop);
+  }
+
+  const handleSave = ev => {
+    ev.preventDefault();
+    setLoading(true);
+    const data = {
+      name: info.name || '',
+      surname: info.surname || '',
+      patronymic: info.patronymic || '',
+      Bigregion: info.Bigregion || 'cfo',
+      region: info.region || '',
+      WoSLink: info.WoSLink || '',
+      scopusLink: info.scopusLink || '',
+      h_Scopus: info.h_Scopus || '',
+      h_WebOfScience: info.h_WebOfScience || '',
+      academicDegree: info.academicDegree || '',
+      academicTitle: info.academicTitle || '',
+      codeSpeciality: info.codeSpeciality || '',
+      email: info.email || '',
+      elib_link: info.elib_link || '',
+      elibID: info.elibID || '',
+      publication:info.publication ? info.publication.join('&^') : '',
+      mainResults: info.mainResults || '',
+      keyWords: info.keyWords ? info.keyWords.split('\n').join(';') : '',
+      phone: info.phone || '',
+      job_place: info.job_place || '',
+      position: info.position || '',
+      hide_phone: info.hide_phone,
+      hide_email: info.hide_email
+    }
+    if (info.newImageFile) {
+      data.image = new File([info.newImageFile], `avatar.png`, { type: 'image/png', path: 'avatar.png' });
+    }
+    scientistsService.patchUser(data, info.id).then(() => setLoading(false));
+  }
+
+  const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({
+    maxFiles: 1,
+  });
+
+  useEffect(() => {
+    if (acceptedFiles.length === 1) {
+      setCropModal({
+        image: acceptedFiles[0],
+        open: true,
+        crop: {
+          unit: 'px',
+          width: 128,
+          aspect: 1 / 1,
+          minWidth: 128,
+          maxWidth: 512,
+        }
+      })
+      console.log(acceptedFiles[0]);
+    }
+  }, [acceptedFiles])
+
+  if (!info.id)
     return '';
 
   return (
     <section className="info-block">
-      {props.edit && (
-        <div className="change-photo">
-          <img src={info.image} alt="image" className="full-image" />
+      <Dialog
+        open={cropModal.open}
+        onClose={() => setCropModal({
+          open: false,
+          image: null,
+          crop: {
+            unit: 'px',
+            width: 128,
+            aspect: 1 / 1,
+            minWidth: 128,
+            maxWidth: 512,
+          }
+        })}
+        className="crop-modal"
+      >
+        <ReactCrop
+          src={cropModal.open ? URL.createObjectURL(cropModal.image) : ''}
+          crop={cropModal.crop}
+          onImageLoaded={handleImageLoaded}
+          onComplete={crop => handleCropComplete(crop)}
+          onChange={crop => setCropModal({...cropModal, crop })}
+          minWidth={128}
+          maxWidth={512}
+        />
+        {currentCropped && (
+          <div className="images">
+            <img src={URL.createObjectURL(currentCropped)} alt="big" className="big" />
+            <img src={URL.createObjectURL(currentCropped)} alt="medium" className="medium" />
+            <img src={URL.createObjectURL(currentCropped)} alt="small" className="small" />
+          </div>
+        )}
+        <div className="action-buttons">
+          <Button
+            className="primary"
+            variant="contained"
+            disabled={!currentCropped}
+            onClick={() => {
+              setInfo({...info, image: URL.createObjectURL(currentCropped), newImageFile: currentCropped });
+              setCurrentCropped(null);
+              setCropModal({
+                open: false,
+                image: null,
+                crop: {
+                  unit: 'px',
+                  width: 128,
+                  aspect: 1 / 1,
+                  minWidth: 128,
+                  maxWidth: 512,
+                }
+              });
+            }}
+          >
+            Сохранить
+          </Button>
+          <Button
+            className="default"
+            variant="contained"
+            onClick={() => {
+              setCurrentCropped(null);
+              setCropModal({
+                open: false,
+                image: null,
+                crop: {
+                  unit: 'px',
+                  width: 128,
+                  aspect: 1 / 1,
+                  minWidth: 128,
+                  maxWidth: 512,
+                }
+              });
+            }}
+          >
+            Отменить
+          </Button>
         </div>
+      </Dialog>
+      {props.edit && info.image && (
+        <section className="info-block_image">
+          <span className="section-title">Изменить фотографию профиля</span>
+          <div {...getRootProps({className: "change-photo"})}>
+            <input {...getInputProps()} />
+            <img src={info.image} alt="image" className="full-image" />
+            <div className="fade">Изменить</div>
+          </div>
+        </section>
       )}
+      <form onSubmit={ev => handleSave(ev)}>
       {props.edit && (
         <section className="info-block_person">
           <span className="section-title">Основная информация</span>
@@ -119,12 +328,14 @@ export const InfoBlock = props => {
               id="name"
               onChange={ev => handleChange(ev.target.value, ev.target.id)}
               label="Имя"
+              required
             />
             <TextField
               value={info.surname}
               id="surname"
               onChange={ev => handleChange(ev.target.value, ev.target.id)}
               label="Фамилия"
+              required
             />
             <TextField
               value={info.patronymic}
@@ -139,8 +350,8 @@ export const InfoBlock = props => {
               label="E-mail"
             />
             <TextField
-              value={info.phone_number}
-              id="phone_number"
+              value={info.phone}
+              id="phone"
               onChange={ev => handleChange(ev.target.value, ev.target.id)}
               label="Номер телефона"
             />
@@ -195,7 +406,7 @@ export const InfoBlock = props => {
                   <img src={location} alt="location" />
                 </Grid>
                 <Grid item>
-                  <Select value={info.Bigregion} onChange={ev => handleBigRegionChange(ev.target.value)} label="Округ" variant="outlined">
+                  <Select value={info.Bigregion} onChange={ev => handleBigRegionChange(ev.target.value)} label="Округ" variant="outlined" required>
                     {regions.map(el => <MenuItem value={el.code} key={el.code}>{el.name}</MenuItem>)}
                   </Select>
                 </Grid>
@@ -206,9 +417,9 @@ export const InfoBlock = props => {
                 </Grid>
                 <Grid item>
                   <Select value={info.region} onChange={ev => handleSelectChange(ev.target.value, 'region')} label="Регион" variant="outlined">
-                    {regions.find(el => el.code === info.Bigregion).regions.map(el => (
+                    {info.Bigregion ? regions.find(el => el.code === info.Bigregion).regions.map(el => (
                       <MenuItem value={el.name} key={el.id}>{el.name}</MenuItem>
-                    ))}
+                    )) : null}
                   </Select>
                 </Grid>
               </Grid>
@@ -224,7 +435,7 @@ export const InfoBlock = props => {
                     variant="outlined"
                   >
                     {majors.map(el => (
-                      <MenuItem value={el.code} key={el.code}>{el.name}</MenuItem>
+                      <MenuItem value={el.name} key={el.code}>{el.name}</MenuItem>
                     ))}
                   </Select>
                 </Grid>
@@ -241,7 +452,7 @@ export const InfoBlock = props => {
                     variant="outlined"
                   >
                     {degrees.map(el => (
-                      <MenuItem value={el.code} key={el.code}>{el.name}</MenuItem>
+                      <MenuItem value={el.name} key={el.code}>{el.name}</MenuItem>
                     ))}
                   </Select>
                 </Grid>
@@ -252,13 +463,13 @@ export const InfoBlock = props => {
                 </Grid>
                 <Grid item>
                   <Select
-                    value={info.codeSpeciality}
-                    onChange={ev => handleSelectChange(ev.target.value, 'codeSpeciality')}
+                    value={info.academicTitle}
+                    onChange={ev => handleSelectChange(ev.target.value, 'academicTitle')}
                     label="Ученое звание"
                     variant="outlined"
                   >
-                    {majors.map(el => (
-                      <MenuItem value={el.code} key={el.code}>{el.name}</MenuItem>
+                    {titles.map(el => (
+                      <MenuItem value={el.name} key={el.code}>{el.name}</MenuItem>
                     ))}
                   </Select>
                 </Grid>
@@ -294,24 +505,25 @@ export const InfoBlock = props => {
           {!props.edit && (
             <>
               <div className="item">
-                <img src={location} alt="location" />
-                <span>{`${regions.find(el => el.code === info.Bigregion).name}, ${info.region}`}</span>
+                <span className="image-container"><img src={location} alt="location" /></span>
+                <span>{info.Bigregion ? `${regions.find(el => el.code === info.Bigregion).name}, ${info.region}` : 'Не указан'}</span>
               </div>
               <div className="item">
-                <img src={expertise} alt="expertise" />
-                <span>{`${majors.find(el => el.code === info.codeSpeciality).name}`}</span>
+                <span className="image-container"><img src={expertise} alt="expertise" /></span>
+                <span>{info.codeSpeciality || 'Не указан'}</span>
               </div>
               <div className="item">
-                  <img src={degree} alt="degree" />
-                  <span>{`${degrees.find(el => el.code === info.academicDegree).name}`}</span>
+                <span className="image-container"><img src={degree} alt="degree" /></span>
+                <span>{info.academicDegree || 'Не указан'}</span>
               </div>
               <div className="item">
-                  <img src={medal} alt="medal" />
-                  <span>{info.academicTitle}</span>
+                <span className="image-container"><img src={medal} alt="medal" /></span>
+                <span>{info.academicTitle || 'Не указан'}</span>
               </div>
               <div className="item">
-                  <img src={job} alt="job" />
-                  <span>{info.job_place}, {info.position}</span>
+                  <span className="image-container"><img src={job} alt="job" /></span>
+                {info.job_place && (<span>{info.job_place}, {info.position || 'Позиция не указана'}</span>)}
+                {!info.job_place && (<span>Не указан</span>)}
               </div>
             </>
           )}
@@ -345,7 +557,11 @@ export const InfoBlock = props => {
         )}
         {!props.edit && (
           <div className="keywords">
-            {info.keyWords.split(';').map(el => <span>#{el}</span>)}
+            {info.keyWords ? info.keyWords.split(';').map(el => {
+              if (el)
+                return <span>#{el}</span>;
+              return null;
+            }) : <span>Не указаны</span>}
           </div>
         )}
       </section>
@@ -359,6 +575,7 @@ export const InfoBlock = props => {
                 id={`${index}`}
                 disabled={!props.edit}
                 onChange={ev => handlePublicationChange(ev.target.value, index)}
+                multiline={!props.edit}
               />
               {props.edit && (
                 <img src={remove} alt="clear" onClick={() => deletePublication(index)}/>
@@ -374,8 +591,41 @@ export const InfoBlock = props => {
         </div>
       </section>
       {props.edit && (
-        <Button variant="contained" className="primary">Сохранить</Button>
+        <section className="info-block_privacy">
+          <span className="section-title">Настройки приватности</span>
+          <FormControlLabel
+            label="Скрывать номер телефона от неавторизованных пользователей"
+            control={
+              <Checkbox
+                checked={info.hide_phone}
+                onChange={() => setInfo({...info, hide_phone: !info.hide_phone })}
+                color="primary"
+              />
+            }
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={info.hide_email}
+                onChange={() => setInfo({ ...info, hide_email: !info.hide_email })}
+                color="primary"
+              />
+            }
+            label="Скрывать адрес электронной почты от неавторизованных пользователей"
+          />
+        </section>
       )}
+      {props.edit && (
+        <Button
+          variant="contained"
+          className="primary"
+          type="submit"
+          disabled={isLoading}
+        >
+          {isLoading ? 'Подождите, идет сохранение' : 'Сохранить'}
+        </Button>
+      )}
+      </form>
     </section>
   )
 };

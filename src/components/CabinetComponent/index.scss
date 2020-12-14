@@ -1,14 +1,22 @@
 .cabinet {
   display: flex;
+  span, input, textarea, .MuiSelect-root {
+    font-family: "Montserrat", sans-serif;
+  }
+  .unauthorized-text {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #464646;
+  }
   &_main-info {
-    width: 37%;
+    width: 80%;
     text-align: center;
     border-right: 1px solid #E2EEFF;
     .person {
       text-align: center;
       img {
         width: 300px;
-        height: 300px;
         max-width: 80%;
         border-radius: 50%;
         display: block;

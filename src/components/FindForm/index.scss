@@ -3,19 +3,27 @@
     flex-direction: column;
     margin-top: 40px;
     align-items: center;
+    width: 100%;
+  overflow-y: scroll;
     .MuiFormControl-root {
-      width: 250px;
+      width: 80%;
+      min-width: 250px;
+      max-width: 335px;
       margin-bottom: 20px;
       background: white;
-      padding: 6px 15px;
+      padding: 1% 15px;
       border-radius: 32px;
-      height: 56px;
+      height: 12%;
       label {
         color: #CBCBCB;
         font-weight: bold;
         padding: 0 5px;
-        margin-top: 5px;
+        margin-top: 2px;
         font-family: "Montserrat", sans-serif;
+        font-size: 16px;
+        @media screen and (max-width: 1400px) {
+          font-size: 14px;
+        }
         &.MuiInputLabel-shrink {
           margin-left: 10px;
           margin-top: 10px;
@@ -24,15 +32,24 @@
       fieldset {
         border: none;
       }
-      .MuiSelect-root {
+      .MuiSelect-root, input {
         font-family: "Montserrat", sans-serif;
         font-weight: bold;
         &:focus {
           background: none;
         }
+        @media screen and (max-width: 1400px) {
+          font-size: 14px;
+        }
       }
       svg {
         fill: #596EEF;
+      }
+      @media screen and (max-width: 1400px) {
+        height: 10%;
+        svg {
+          margin-top: -5px;
+        }
       }
     }
   .more-search {
@@ -40,18 +57,26 @@
     font-weight: 600;
     color: #596EEF;
     width: 200px;
-    align-self: flex-start;
+    font-size: 14px;
+    align-self: center;
   }
   button {
     margin-top: 20px;
     padding: 16px 23px;
     border-radius: 25px;
+    width: 80%;
+    min-width: 280px;
+    max-width: 365px;
     &.Mui-disabled.MuiButton-root {
       background: #596eef;
       color: white;
       opacity: 0.5;
     }
+    @media screen and (max-width: 1500px) {
+      padding: 13px 18px;
+    }
   }
+
 }
 
 

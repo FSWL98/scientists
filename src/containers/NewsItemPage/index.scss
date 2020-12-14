@@ -9,7 +9,7 @@
   .news-item {
     .image-container {
       width: 87.5vw;
-      height: 16vw;
+      min-height: 16vw;
       border-radius: 40px;
       background-size: contain;
       padding-top: 14vw;
@@ -18,8 +18,8 @@
         width: fit-content;
         color: white;
         font-family: "Montserrat", sans-serif;
-        padding: 30px 10px 40px 35px;
-        max-width: 40%;
+        padding: 30px 20px 40px 35px;
+        max-width: 800px;
         margin-left: 10%;
         span {
           display: block;
@@ -30,6 +30,18 @@
         }
         &_date {
           font-size: 25px;
+        }
+        @media screen and (max-width: 1600px) {
+          max-width: 650px;
+          &_title {
+            font-size: 50px;
+          }
+        }
+        @media screen and (max-width: 1300px) {
+          max-width: 540px;
+          &_title {
+            font-size: 40px;
+          }
         }
       }
     }

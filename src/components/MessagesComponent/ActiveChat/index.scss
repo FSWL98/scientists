@@ -1,0 +1,90 @@
+.active-chat {
+  border-left: 1px solid #e2eeff;
+  display: flex;
+  flex-direction: column;
+  background: rgba(226, 238, 255, 0.5);
+  flex-grow: 1;
+  .choose-chat {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    color: #8c8c8c;
+    font-style: italic;
+    font-size: 16px;
+    max-width: 70%;
+    align-self: center;
+  }
+  .person {
+    border-bottom: 1px solid #e2eeff;
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+    .name {
+      font-family: "Montserrat", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #464646;
+    }
+  }
+  .messages {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 30px;
+    &_item {
+      padding: 10px 30px;
+      border-radius: 30px;
+      max-width: 40%;
+      span {
+        display: block;
+        font-family: "Montserrat", sans-serif;
+        &.author {
+          font-weight: 600;
+          font-size: 13px;
+        }
+        &.text {
+          font-size: 16px;
+          margin: 10px 0;
+        }
+        &.time {
+          font-size: 11px;
+          font-weight: 600;
+          color: #8c8c8c;
+        }
+      }
+      &.sent {
+        align-self: flex-end;
+        background: #596EEF;
+      }
+      &.received {
+        align-self: flex-start;
+        background: #e2eeff;
+      }
+    }
+  }
+  .send-message {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    background: white;
+    border-top: 1px solid #e2eeff;
+    padding: 25px 15px 15px 80px;
+    span {
+      width: 70%;
+      padding: 10px 20px;
+      border-radius: 20px;
+      background: #e2eeff;
+      margin-right: 20px;
+    }
+    button {
+      border: none;
+      width: 35px;
+      height: 35px;
+      background: url("../../../assets/send.svg") no-repeat center;
+    }
+  }
+}

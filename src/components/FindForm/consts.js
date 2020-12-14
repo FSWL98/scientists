@@ -6,7 +6,7 @@ export const regions =
     coordinates: [54.873745, 38.064718],
     regions: [
       {
-        id: 0,
+        id: 20,
         name: "Белгородская область"
       },
       {
@@ -85,7 +85,7 @@ export const regions =
     coordinates: [61.469749, 36.498137],
     regions: [
       {
-        id: 0,
+        id: 20,
         name: "Республика Карелия"
       },
       {
@@ -136,7 +136,7 @@ export const regions =
     coordinates: [48.622558, 43.166151],
     regions: [
       {
-        id: 0,
+        id: 20,
         name: "Республика Адыгея"
       },
       {
@@ -175,7 +175,7 @@ export const regions =
     coordinates: [43.898977, 44.693045],
     regions: [
       {
-        id: 0,
+        id: 20,
         name: "Республика Дагестан"
       },
       {
@@ -210,7 +210,7 @@ export const regions =
     coordinates: [55.485362, 51.524283],
     regions: [
       {
-        id: 0,
+        id: 20,
         name: "Республика Башкортостан"
       },
       {
@@ -273,7 +273,7 @@ export const regions =
     coordinates: [60.519886, 64.350447],
     regions: [
       {
-        id: 0,
+        id: 20,
         name: "Курганская область"
       },
       {
@@ -304,7 +304,7 @@ export const regions =
     coordinates: [61.833048, 96.962463],
     regions: [
       {
-        id: 0,
+        id: 20,
         name: "Республика Алтай"
       },
       {
@@ -351,7 +351,7 @@ export const regions =
     coordinates: [63.629508, 124.131856],
     regions: [
       {
-        id: 0,
+        id: 20,
         name: "Республика Бурятия"
       },
       {
@@ -416,6 +416,17 @@ export const majors = [
   },
   {
     code: 'korped',
-    name: 'Коррекционная педагокика',
+    name: 'Коррекционная педагогика',
   }
 ];
+
+export const titles = [
+  {
+    code: 'DOCSHENT',
+    name: 'Доцент',
+  },
+  {
+    code: 'PROFESSOR',
+    name: 'Профессор',
+  }
+]

@@ -1,0 +1,113 @@
+.news-page {
+  header, section {
+    padding: 0 6.25% 40px 6.25%;
+  }
+  header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    a {
+      height: fit-content;
+    }
+  }
+  &_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .to-main-link {
+      margin: 20px 0;
+      text-decoration: none;
+      color: white;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      background: #596EEF;
+      padding: 18px 32px;
+      border-radius: 27px;
+      &:hover {
+        background: #394ECF;
+        transition: background-color 0.3s;
+      }
+    }
+    nav {
+      ul {
+        width: fit-content;
+        margin: 0 auto;
+        .Mui-selected {
+          background: #596EEF;
+        }
+      }
+    }
+    p {
+      width: 200px;
+      margin: 20px auto;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+      font-style: italic;
+      color: black;
+      opacity: 0.7;
+      min-height: 200px;
+    }
+    &__news {
+      margin: 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      .element {
+        background: #596EEF;
+        padding: 50px 40px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        border-radius: 40px;
+        text-decoration: none;
+        width: calc((100% - 40px)/3 - 80px);
+        &:nth-of-type(3n) {
+          margin-right: 0;
+        }
+        @media screen and (max-width: 1500px){
+          padding: 35px 28px;
+          width: calc((100% - 40px)/3 - 56px);
+        }
+        @media screen and (max-width: 1300px){
+          padding: 28px 20px;
+          width: calc((100% - 40px)/3 - 40px);
+        }
+        span {
+          display: block;
+          color: white;
+          font-weight: 600;
+          font-family: "Montserrat", sans-serif;
+          &.news-date {
+            // Стили для даты новости
+            font-size: 25px;
+          }
+          &.news-title {
+            font-size: 36px;
+            // Стили для заголовка новости
+          }
+          @media screen and (max-width: 1700px) {
+            &.news-date {
+              font-size: 18px;
+            }
+            &.news-title {
+              font-size: 32px;
+            }
+          }
+          @media screen and (max-width: 1500px) {
+            &.news-title {
+              font-size: 26px;
+            }
+          }
+          @media screen and (max-width: 1300px) {
+            &.news-title {
+              font-size: 20px;
+            }
+            &.news-date {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

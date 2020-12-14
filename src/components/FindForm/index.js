@@ -7,14 +7,10 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import { regions, degrees, majors } from './consts';
+import TextField from "@material-ui/core/TextField";
 
 
-export const FindForm = () => {
-  const [currentDistrict, setDistrict] = useState({});
-  const [currentRegion, setRegion] = useState({});
-  const [currentDegree, setDegree] = useState({});
-  const [currentMajor, setMajor] = useState({});
-
+export const FindForm = props => {
   return (
       <form className="find-form">
         <FormControl className="district" variant="outlined">
@@ -22,12 +18,13 @@ export const FindForm = () => {
           <Select
             labelId="district"
             id="district"
-            value={currentDistrict.code}
+            value={props.currentDistrict.code || 'none'}
             onChange={ev => {
-              setDistrict(regions.find(el => el.code === ev.target.value));
-              setRegion({});
+              props.setDistrict(ev.target.value === 'none' ? {} : regions.find(el => el.code === ev.target.value));
+              props.setRegion({});
             }}
           >
+            <MenuItem value="none">Не важно</MenuItem>
             {regions.map(el => <MenuItem value={el.code} key={el.code}>{el.name}</MenuItem>)}
           </Select>
         </FormControl>
@@ -36,11 +33,12 @@ export const FindForm = () => {
           <Select
             labelId="region"
             id="region"
-            value={currentRegion.id || ''}
-            onChange={ev => setRegion(currentDistrict.regions.find(el => el.id === ev.target.value))}
-            disabled={!currentDistrict.code}
+            value={props.currentRegion.id || 'none'}
+            onChange={ev => props.setRegion(ev.target.value === 'none' ? {} : props.currentDistrict.regions.find(el => el.id === ev.target.value))}
+            disabled={!props.currentDistrict.code}
           >
-            {currentDistrict.regions && currentDistrict.regions.map(el => (
+            <MenuItem value="none">Не важно</MenuItem>
+            {props.currentDistrict.regions && props.currentDistrict.regions.map(el => (
               <MenuItem value={el.id} key={el.id}>{el.name}</MenuItem>
             ))}
           </Select>
@@ -50,9 +48,10 @@ export const FindForm = () => {
           <Select
             labelId="specialty"
             id="specialty"
-            value={currentMajor.code || ''}
-            onChange={ev => setMajor(majors.find(el => el.code === ev.target.value))}
+            value={props.currentMajor.code || 'none'}
+            onChange={ev => props.setMajor(ev.target.value === 'none' ? {} : majors.find(el => el.code === ev.target.value))}
           >
+            <MenuItem value="none">Не важно</MenuItem>
             {majors.map(el => <MenuItem value={el.code} key={el.code}>{el.name}</MenuItem>)}
           </Select>
         </FormControl>
@@ -60,21 +59,26 @@ export const FindForm = () => {
           <InputLabel id="degree">Введите уч.степень</InputLabel>
           <Select
             labelId="degree"
-            value={currentDegree.code || ''}
-            onChange={ev => setDegree(degrees.find(el => el.code === ev.target.value))}
+            value={props.currentDegree.code || 'none'}
+            onChange={ev => props.setDegree(ev.target.value === 'none' ? {} : degrees.find(el => el.code === ev.target.value))}
           >
+            <MenuItem value="none">Не важно</MenuItem>
             {degrees.map(el => <MenuItem value={el.code} key={el.code}>{el.name}</MenuItem>)}
           </Select>
         </FormControl>
-        <p className="more-search">
-          *Для расширенного поиска авторизируйтесь
-        </p>
+        <TextField
+          label="Ключевые слова (через пробел)"
+          value={props.keyWords}
+          onChange={ev => props.setKeyWords(ev.target.value)}
+          variant="outlined"
+        />
         <Button
           variant="contained"
           className="primary"
-          disabled={!currentDistrict.code && !currentMajor.code && !currentDegree.code}
+          onClick={() => props.handleSubmit()}
+          disabled={props.isLoading}
         >
-          Поиск исследователей
+          {props.isLoading ? 'Идет поиск...' : 'Поиск исследователей'}
         </Button>
       </form>
   );

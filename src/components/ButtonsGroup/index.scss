@@ -1,28 +1,37 @@
 .buttons-group {
   align-self: flex-end;
+  z-index: 5;
   padding: 40px 0 20px 10px;
-  button, a {
+  button, a, .logged-button {
+    width: fit-content;
+    vertical-align: top;
+    span {
+      font-size: 16px;
+    }
     img {
       height: 24px;
-      margin-right: 7px;
+      margin-right: 7px !important;
     }
     margin-right: 25px;
-    @media screen and (max-width: 1400px) {
-      padding: 15px 28px;
-      margin-right: 20px;
-    }
-    @media screen and (max-width: 1200px) {
-      padding: 15px 18px;
+    @media screen and (max-width: 1500px) {
+      padding: 15px 25px;
       margin-right: 15px;
+    }
+    @media screen and (max-width: 1300px) {
+      padding: 15px 16px;
+      margin-right: 10px;
     }
     padding: 20px 35px;
     border-radius: 30px;
   }
   a {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
     background-color: #F6F6F6;
     color: #8C8C8C;
     text-decoration: none;
     display: inline-flex;
+    align-items: center;
     vertical-align: top;
     &:hover {
       background-color: #d6d6d6;
@@ -35,6 +44,150 @@
         background-color: #394ECF;
         transition: background-color 0.3s;
       }
+    }
+  }
+  & *:last-child {
+    span {
+      font-size: 15px;
+    }
+    margin-right: 0;
+    font-size: 15px;
+  }
+  .logged-button {
+    width: 200px;
+    height: 40px;
+    background: #596EEF;
+    color: white;
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+    display: inline-block;
+    padding: 13.5px 25px;
+    z-index: 3;
+    @media screen and (max-width: 1500px) {
+      padding: 8.5px 18px;
+    }
+    @media screen and (max-width: 1300px) {
+      padding: 8.5px 13px;
+    }
+    .hovered {
+      display: none;
+    }
+    &:hover {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      .hovered {
+        display: block;
+        z-index: 5;
+        background: #596EEF;
+        width: 200px;
+        padding: 0 25px 13.5px 25px;
+        margin-left: -25px;
+        margin-top: -5px;
+        border-bottom-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+        @media screen and (max-width: 1500px) {
+          padding: 0 18px 8.5px 18px;
+          margin-left: -18px;
+        }
+        @media screen and (max-width: 1300px) {
+          padding: 0 13px 8.5px 13px;
+          margin-left: -13px;
+        }
+      }
+    }
+    .line {
+      margin-top: 15px;
+    }
+    button {
+      cursor: pointer;
+      &:focus {
+        outline: none;
+      }
+    }
+    .line, .main {
+      display: flex;
+      align-items: center;
+      background: none;
+      border: none;
+      padding: 0;
+      color: white;
+      font-family: "Montserrat", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      .image-container {
+        width: 34px;
+        height: auto;
+        text-align: right;
+        margin-right: 10px;
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+    .main {
+      .image-container img {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+.login-dialog {
+  .MuiPaper-root {
+    width: 50vw;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 50px;
+    padding: 20px;
+    .close {
+      cursor: pointer;
+      background: none;
+      border: none;
+      margin: 10px 30px 0 0;
+      align-self: flex-end;
+      img {
+        width: 30px;
+      }
+    }
+    .picture {
+      width: 80%;
+      margin-bottom: 20px;
+    }
+    form {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      & > * {
+        height: 56px;
+        border-radius: 28px;
+        margin: 10px 0;
+        fieldset {
+          border-radius: 28px;
+        }
+        label, legend {
+          margin-left: 10px;
+        }
+      }
+    }
+    .help-text {
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      color: #8c8c8c;
+      font-weight: 600;
+      width: 70%;
+      text-align: center;
+    }
+    .error-text {
+      font-weight: 600;
+      font-size: 13px;
+      color: #ff0046;
+      font-family: "Montserrat", sans-serif;
+      width: 60%;
+      text-align: center;
     }
   }
 }

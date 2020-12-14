@@ -11,7 +11,23 @@ export const SideBlock = props => {
       <p className="side-block_scientists">
         Поиск исследователей в нужном регионе по заданным параметрам
       </p>
-      {props.page === 'main' ? <FindForm /> : <NavigationLinks match={props.match} />}
+      {props.page === 'main' ?
+        <FindForm
+          currentDistrict={props.currentDistrict}
+          setDistrict={props.setDistrict}
+          currentRegion={props.currentRegion}
+          setRegion={props.setRegion}
+          currentDegree={props.currentDegree}
+          setDegree={props.setDegree}
+          currentMajor={props.currentMajor}
+          setMajor={props.setMajor}
+          keyWords={props.keyWords}
+          setKeyWords={props.setKeyWords}
+          handleSubmit={props.handleSubmit}
+          isLoading={props.isLoading}
+        />
+        :
+        <NavigationLinks match={props.match} />}
     </div>
   )
 };

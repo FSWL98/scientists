@@ -1,4 +1,9 @@
 .ymaps-2-1-77 {
+  &-map {
+    &-bg {
+      background-image: none !important;
+    }
+  }
   &-b-cluster-tabs {
     width: 100% !important;
     &__section_type_nav {
@@ -15,6 +20,7 @@
         font-size: 15px;
         font-weight: 600;
         padding: 6px 20px;
+        font-family: "Montserrat", sans-serif;
       }
       &_current_yes {
         background: #596eef !important;
@@ -27,11 +33,19 @@
     }
   }
   &-inner-panes {
-    border: 2px solid #596EEF;
     border-radius: 40px;
   }
   &-balloon {
     width: 600px;
+    box-shadow: none !important;
+    &__layout {
+      padding: 10px 25px 10px 10px !important;
+      border-radius: 20px !important;
+      box-shadow: 0 0 1px 0 black;
+    }
+    &__tail {
+      display: none !important;
+    }
     &__content {
       width: 580px !important;
       & > *{
@@ -46,8 +60,8 @@
     .balloon-content {
       max-width: 350px;
       max-height: 300px;
-      overflow-y: scroll;
       padding: 10px;
+      font-family: "Montserrat", sans-serif;
       &_person {
         display: flex;
         padding: 10px 20px;
@@ -73,6 +87,10 @@
         &__line {
           display: flex;
           align-items: center;
+          margin-bottom: 10px;
+          font-size: 15px;
+          color: black;
+          font-weight: 600;
           .image {
             min-width: 24px;
             min-height: 24px;
@@ -86,6 +104,33 @@
           .expertise {
             background: url("../../assets/expertise.svg") no-repeat center;
           }
+          .academicDegree {
+            background: url("../../assets/degree.svg") no-repeat center;
+            background-size: contain;
+          }
+          .email {
+            background: url("../../assets/email.svg") no-repeat center;
+            background-size: contain;
+          }
+          .phone {
+            background: url("../../assets/phone.svg") no-repeat center;
+            background-size: contain;
+          }
+        }
+      }
+      .more-info {
+        float: right;
+        padding: 12px 30px;
+        background: #e2eeff;
+        border-radius: 20px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        color: #596EEF;
+        font-size: 15px;
+        text-decoration: none;
+        &:hover {
+          background-color: #c2cedf;
+          transition: background-color 0.3s;
         }
       }
     }

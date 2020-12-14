@@ -29,12 +29,12 @@ export default class AuthService extends BaseService {
     return localStorage.getItem('token');
   }
 
-  static async login (password, username) {
+  static async login (password, email) {
     const options = {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify({
-        username,
+        email,
         password,
       }),
       headers: {
@@ -42,20 +42,25 @@ export default class AuthService extends BaseService {
       },
     };
     return this.request(
-      `${baseURL}/api/v1/auth_token/token/login`,
+      `${baseURL}/api/v1/auth_token/token/login/`,
       options,
     ).then(response => {
       if (response.error)
         return Promise.reject(response.error);
-      localStorage.setItem('token', `${response.auth_token}`);
+      localStorage.setItem('token', `${response.token}`);
+      localStorage.setItem('user', JSON.stringify({
+        id: response.pk,
+        name: response.FIO,
+        image: `${response.imagepath}`
+      }));
       return Promise.resolve();
     });
   }
 
-  static async authRequest (url, options) {
+  static async authRequest (url, options, content = 'application/json') {
     options.headers = {
       Authorization: `Token ${this.getAuthToken()}`,
-      'Content-Type': 'application/json',
+      'Content-Type': content,
     };
     options.mode = 'cors';
     const response = await fetch(url, options);
@@ -67,17 +72,14 @@ export default class AuthService extends BaseService {
       mode: 'cors',
       method: 'GET',
       headers: {
-        Authorization: `Token ${this.getAuthToken()}`,
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+        Authorization: `${this.getAuthToken()}`,
+        'Content-Type': 'application/json'
       }
     };
     const response = await fetch(
       `${baseURL}/api/v1/auth_token/token/tokenchek/`,
       options,
     );
-    return this.parseResponse(response, true, 'token');
+    return response;
   }
 }
