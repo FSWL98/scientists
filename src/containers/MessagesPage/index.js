@@ -8,14 +8,15 @@ import AuthService from "../../services/AuthService";
 
 
 export const MessagesPage = props => {
+  const [socket, setSocket] = useState(undefined);
   const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [socket, setSocket] = useState(undefined);
 
   useEffect(() => {
     setChats(ch);
   }, []);
+  console.log(socket);
 
   const handleChatSelect = id => {
     setActiveChat(chats.find(el => el.chat_id === id));
@@ -30,25 +31,32 @@ export const MessagesPage = props => {
   }
 
   useEffect(() => {
-    setSocket(new WebSocket(`${wsURL}/chat/1/`));
-    socket.onopen = () => {
-      socket.send(JSON.stringify({
-        command: 'setuser',
-        user_id: AuthService.getUserLocal().id
-      }));
-      socket.send(JSON.stringify({
-        command: 'join',
-        room: 1
-      }));
-      console.log('new connection is opened');
-    }
-    socket.onmessage = e => {
-      setMessages([...messages, e.data]);
-    }
+    if (activeChat)
+      setSocket(new WebSocket(`${wsURL}/chat/1/`));
     return () => {
-      socket.close(1000, 'opening new chat');
+      if (socket)
+        socket.close(1000, 'opening new chat');
     }
   }, [activeChat])
+
+  useEffect(() => {
+    if (socket) {
+      socket.onopen = () => {
+        socket.send(JSON.stringify({
+          command: 'setuser',
+          user_id: AuthService.getUserLocal().id
+        }));
+        socket.send(JSON.stringify({
+          command: 'join',
+          room: 1
+        }));
+        console.log('new connection is opened');
+      }
+      socket.onmessage = e => {
+        setMessages([...messages, e.data]);
+      }
+    }
+  }, [socket])
 
   return (
     <div className="main-page">

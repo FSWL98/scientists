@@ -91,7 +91,7 @@ export const ButtonsGroup = () => {
         <div className="logged-button">
           <Link className="main" to="/scientists/profile">
             <span className="image-container"><img src={AuthService.getUserLocal().image} alt="" /></span>
-            <span>{user.name.split(' ')[0]} {user.name.split(' ')[0][0]}. {`${user.name.split(' ')[1] ? user.name.split(' ')[1][0] + '.' : ''}`}</span>
+            <span>{user.name.split(' ')[0]} {user.name.split(' ')[1][0]}. {`${user.name.split(' ')[2] ? user.name.split(' ')[2][0] + '.' : ''}`}</span>
           </Link>
           <div className="hovered">
             <Link className="line" to="/scientists/profile/edit">

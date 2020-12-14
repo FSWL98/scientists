@@ -73,12 +73,21 @@
     background: white;
     border-top: 1px solid #e2eeff;
     padding: 25px 15px 15px 80px;
-    span {
+    .MuiTextField-root {
       width: 70%;
-      padding: 10px 20px;
-      border-radius: 20px;
+      padding: 0;
+      border-radius: 30px;
       background: #e2eeff;
       margin-right: 20px;
+      fieldset {
+        border: none;
+      }
+      input {
+        padding-left: 20px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        color: #464646;
+      }
     }
     button {
       border: none;
