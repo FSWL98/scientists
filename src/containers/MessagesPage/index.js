@@ -11,7 +11,7 @@ export const MessagesPage = props => {
   const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
   const [messages, setMessages] = useState([]);
-  let socket;
+  const [socket, setSocket] = useState(undefined);
 
   useEffect(() => {
     setChats(ch);
@@ -30,11 +30,11 @@ export const MessagesPage = props => {
   }
 
   useEffect(() => {
-    socket = new WebSocket(`${wsURL}/chat/1/`);
+    setSocket(new WebSocket(`${wsURL}/chat/1/`));
     socket.onopen = () => {
       socket.send(JSON.stringify({
         command: 'setuser',
-        user: AuthService.getUserLocal().id
+        user_id: AuthService.getUserLocal().id
       }));
       socket.send(JSON.stringify({
         command: 'join',
