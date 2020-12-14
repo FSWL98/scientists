@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../../../assets/logo512.png';
 import './index.scss';
+import AuthService from "../../../services/AuthService";
 
 export const ActiveChat = props => (
   <section className="active-chat">
@@ -16,20 +17,17 @@ export const ActiveChat = props => (
           <span className="name">{props.activeChat.user.name} {props.activeChat.user.surname}</span>
         </div>
         <div className="messages">
-          <div className="messages_item sent">
-            <span className="author">Семен</span>
-            <span className="text">Приветик</span>
-            <span className="time">Сегодня, 15:30</span>
-          </div>
-          <div className="messages_item received">
-            <span className="author">Егор</span>
-            <span className="text">Привет! :)</span>
-            <span className="time">Сегодня, 15:33</span>
-          </div>
+          {props.messages.map(msg => (
+            <div className={`messages_item ${msg.user_id === AuthService.getUserLocal().id ? 'sent' : 'received'}`}>
+              <span className="author">{msg.username}</span>
+              <span className="text">{msg.message}</span>
+              <span className="time">Вчера, 19:40</span>
+            </div>
+          ))}
         </div>
         <div className="send-message">
           <span>Тут текст сообщения должен быть</span>
-          <button className="send" />
+          <button className="send" type="button" onClick={() => props.sendMessage("Здарова. Я тестовое сообщение для локала")}/>
         </div>
       </>
     )}

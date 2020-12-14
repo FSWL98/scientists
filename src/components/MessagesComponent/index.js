@@ -5,7 +5,14 @@ import './index.scss';
 
 export const MessagesComponent = props => (
   <section className="messages">
-    <ChatsList chats={props.chats} setActiveChat={props.setActiveChat}/>
-    <ActiveChat activeChat={props.activeChat} />
+    <ChatsList
+      chats={props.chats}
+      setActiveChat={props.setActiveChat}
+    />
+    <ActiveChat
+      activeChat={props.activeChat}
+      messages={props.messages}
+      sendMessage={props.sendMessage}
+    />
   </section>
 )

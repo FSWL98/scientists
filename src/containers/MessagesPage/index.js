@@ -3,17 +3,15 @@ import { chats as ch } from "./consts";
 import {SideBlock} from "../../components/SideBlock";
 import {ButtonsGroup} from "../../components/ButtonsGroup";
 import {MessagesComponent} from "../../components/MessagesComponent";
-import useWebSocket from 'react-use-websocket';
 import { wsURL } from "../../services/baseURL";
+import AuthService from "../../services/AuthService";
 
 
 export const MessagesPage = props => {
   const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
-  const { sendMessage, lastMessage } = useWebSocket(`${wsURL}/chat/1/`, {
-    onOpen: () => console.log('connection opened'),
-    onError: () => console.log('error connecting to ws'),
-  });
+  const [messages, setMessages] = useState([]);
+  let socket;
 
   useEffect(() => {
     setChats(ch);
@@ -23,12 +21,47 @@ export const MessagesPage = props => {
     setActiveChat(chats.find(el => el.chat_id === id));
   }
 
+  const sendMessage = msg => {
+    socket.send({
+      command: 'send',
+      room: 1,
+      message: msg,
+    });
+  }
+
+  useEffect(() => {
+    socket = new WebSocket(`${wsURL}/chat/1/`);
+    socket.onopen = () => {
+      socket.send({
+        command: 'setuser',
+        user: AuthService.getUserLocal().id
+      });
+      socket.send({
+        command: 'join',
+        room: 1
+      });
+      console.log('new connection is opened');
+    }
+    socket.onmessage = e => {
+      setMessages([...messages, e.data]);
+    }
+    return () => {
+      socket.close(1000, 'opening new chat');
+    }
+  }, [activeChat])
+
   return (
     <div className="main-page">
       <SideBlock page='cabinet' match={props.match} />
       <div className="main-page_right">
         <ButtonsGroup />
-        <MessagesComponent chats={chats} setActiveChat={handleChatSelect} activeChat={activeChat}/>
+        <MessagesComponent
+          chats={chats}
+          setActiveChat={handleChatSelect}
+          activeChat={activeChat}
+          messages={messages}
+          sendMessage={sendMessage}
+        />
       </div>
     </div>
   );
