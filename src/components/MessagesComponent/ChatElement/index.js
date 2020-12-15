@@ -10,7 +10,7 @@ export const ChatElement = props => (
         {props.chat.friend_name} {props.chat.friend_surname}
       </span>
       <p className="message">
-        Тут последнее сообщение будет
+        Нажмите чтобы открыть диалог
       </p>
     </div>
   </div>
