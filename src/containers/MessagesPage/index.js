@@ -14,7 +14,7 @@ export const MessagesPage = props => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const chatsSocket = new WebSocket(`${wsURL}/ws/roomlist`);
+    const chatsSocket = new WebSocket(`${wsURL}/roomlist/`);
     chatsSocket.onopen = () => {
       console.log('chats list connection opened');
       chatsSocket.send(JSON.stringify({
