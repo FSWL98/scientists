@@ -30,10 +30,15 @@ export const ActiveChat = props => {
           </div>
           <div className="send-message">
             <TextField value={inputText} onChange={ev => setText(ev.target.value)} variant="outlined" />
-            <button className="send" type="button" onClick={() => {
-              props.sendMessage(inputText);
-              setText('');
-            }}/>
+            <button
+              className="send"
+              type="button"
+              onClick={() => {
+                props.sendMessage(inputText);
+                setText('');
+              }}
+              disabled={!inputText}
+            />
           </div>
         </>
       )}

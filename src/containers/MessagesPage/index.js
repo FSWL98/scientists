@@ -16,7 +16,6 @@ export const MessagesPage = props => {
   useEffect(() => {
     setChats(ch);
   }, []);
-  console.log(socket);
 
   const handleChatSelect = id => {
     setActiveChat(chats.find(el => el.chat_id === id));
@@ -53,7 +52,10 @@ export const MessagesPage = props => {
         console.log('new connection is opened');
       }
       socket.onmessage = e => {
-        setMessages([...messages, e.data]);
+        console.log(e);
+        console.log(e.data);
+        console.log(e.message);
+        setMessages([...messages, e]);
       }
     }
   }, [socket])
