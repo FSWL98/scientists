@@ -14,12 +14,25 @@ export const MessagesPage = props => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const chatsSocket = new WebSocket(`${wsURL}/`);
+    const chatsSocket = new WebSocket(`${wsURL}/ws/roomlist`);
     chatsSocket.onopen = () => {
       console.log('chats list connection opened');
+      chatsSocket.send(JSON.stringify({
+        command: 'setuser',
+        user_id: AuthService.getUserLocal().id,
+      }));
+      chatsSocket.send(JSON.stringify({
+        command: 'get_list'
+      }))
     }
     chatsSocket.onmessage = e => {
-      setChats(JSON.parse(e.data).chats)
+      const data = JSON.parse(e.data);
+      console.log(data);
+      if (data.command === 'get_list')
+        setChats(data.roomlist);
+    }
+    return () => {
+      chatsSocket.close();
     }
   }, []);
 
