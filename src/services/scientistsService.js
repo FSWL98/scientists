@@ -39,15 +39,10 @@ export default class scientistsService extends AuthService {
   }
 
   static async patchUser (data, id) {
-    const formData = new FormData();
-    Object.keys(data).map(key => {
-      formData.append(key, data[key]);
-    });
-    console.log(formData.get('image'));
     const options = {
       method: 'PATCH',
       mode: 'cors',
-      body: formData,
+      body: JSON.stringify(data),
     };
     const response = this.authRequest(
       `${baseURL}/api/v1/scientistprofile/${id}/`,
