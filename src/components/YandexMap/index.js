@@ -22,8 +22,10 @@ const YandexMap = props => {
       <Map
         defaultState={{ center: [55.76, 37.64], zoom: 3 }}
         style={{ borderRadius: '20px', width: '100%', marginTop: '20px', minHeight: '49%' }}
+        modules={['geocode']}
       >
         <Clusterer
+          modules={['clusterer.addon.balloon']}
           options={{
             clusterDisableClickZoom: true,
             iconColor: '#ff0046',
@@ -42,6 +44,7 @@ const YandexMap = props => {
               options={{
                 iconColor: '#596EEF'
               }}
+              modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
             />
           ))}
         </Clusterer>

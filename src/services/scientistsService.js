@@ -57,6 +57,22 @@ export default class scientistsService extends AuthService {
     return response;
   }
 
+  static async createChat(user1_id, user2_id) {
+    const options = {
+      method: 'POST',
+      mode: 'cors',
+      body: JSON.stringify({
+        user1_id,
+        user2_id
+      })
+    };
+    const response = this.authRequest(
+      `${baseURL}/api/v1/createChatRoom/`,
+      options
+    );
+    return response;
+  }
+
   static async getPoints (big = '', region = '', spec = '', title = '', keyword = '') {
     const options = {
       method: 'GET',

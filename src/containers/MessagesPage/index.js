@@ -5,6 +5,7 @@ import {ButtonsGroup} from "../../components/ButtonsGroup";
 import {MessagesComponent} from "../../components/MessagesComponent";
 import { wsURL } from "../../services/baseURL";
 import AuthService from "../../services/AuthService";
+import scientistsService from "../../services/scientistsService";
 
 
 export const MessagesPage = props => {
@@ -14,6 +15,14 @@ export const MessagesPage = props => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
+    if (window.location.search) {
+      const id = parseInt(window.location.search.split('?start=')[1], 10);
+      if (id) {
+        scientistsService.createChat(AuthService.getUserLocal().id, id).then(response => {
+          handleChatSelect(parseInt(response.room_id, 10));
+        })
+      }
+    }
     const chatsSocket = new WebSocket(`${wsURL}/roomlist/`);
     chatsSocket.onopen = () => {
       console.log('chats list connection opened');

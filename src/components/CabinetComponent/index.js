@@ -68,7 +68,9 @@ export const CabinetComponent = props => {
             </span>
           </div>
           <div className="contacts">
-            <Link to={`/scientists/message/${dataState.person.id}`}>Написать сообщение</Link>
+            {dataState.person.id !== AuthService.getUserLocal().id && (
+              <Link to={`/scientists/messages?start=${dataState.person.id}`}>Написать сообщение</Link>
+            )}
             <a href={`tel:${dataState.person.phone}`} className="phone">
               {dataState.person.phone || 'Телефон не указан'}
             </a>
