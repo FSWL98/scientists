@@ -16,8 +16,8 @@ export const ActiveChat = props => {
       {!!props.activeChat && (
         <>
           <div className="person">
-            <img src={props.activeChat.user.image || logo} alt="avatar" />
-            <span className="name">{props.activeChat.user.name} {props.activeChat.user.surname}</span>
+            <img src={props.activeChat.friend_photo || logo} alt="avatar" />
+            <span className="name">{props.activeChat.friend_name} {props.activeChat.friend_surname}</span>
           </div>
           <div className="messages">
             {props.messages.map(msg => (
