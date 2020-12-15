@@ -57,8 +57,10 @@ export const MessagesPage = props => {
   }
 
   useEffect(() => {
-    if (activeChat)
+    if (activeChat) {
+      setMessages([]);
       setSocket(new WebSocket(`${wsURL}/chat/${activeChat.room_id}/`));
+    }
     return () => {
       if (socket)
         socket.close(1000, 'opening new chat');
