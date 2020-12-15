@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {Clusterer, Map, Placemark, withYMaps} from "react-yandex-maps";
 import './index.scss';
+import {regions} from "../FindForm/consts";
 
 const YandexMap = props => {
   const [coords, setCoords] = useState([54.873745, 38.064718]);
-  const getCoords = index => {
-    if (index % 2 === 0) {
-      props.ymaps.geocode('Кемеровская область', {results: 1})
-        .then(response => {
-          console.log(response.geoObjects.get(0).geometry.getCoordinates())
-            return response.geoObjects.get(0).geometry.getCoordinates();
-          }
-        );
+  const getCoords = point => {
+    if (point.region) {
+      return regions.find(el => el.code === point.Bigregion).regions.find(el => el.name === point.region).coordinates;
     }
-    else return [54.873745, 38.064718];
+    else if (point.Bigregion) {
+      return regions.find(el => el.code === point.Bigregion).coordinates;
+    }
   }
 
   if (!props.points)
@@ -37,13 +35,12 @@ const YandexMap = props => {
           {props.points.map(el => (
             <Placemark
               key={el.id}
-              geometry={coords}
+              geometry={getCoords(el)}
               properties={{
                 balloonContent: el.ymapshortcut,
-                hintContent: 'hint',
                 balloonContentHeader: `${el.surname} ${el.name[0].toUpperCase()}. ${el.patronymic[0] ? el.patronymic.toUpperCase()[0] + '.' : ''}` }}
               options={{
-                iconColor: '#ff0046'
+                iconColor: '#596EEF'
               }}
               modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
             />

@@ -1,4 +1,11 @@
 .chats-list {
   width: 30%;
   min-width: 400px;
+  p {
+    font-weight: 600;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    font-style: italic;
+    color: #464646;
+  }
 }

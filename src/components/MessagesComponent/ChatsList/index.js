@@ -8,6 +8,9 @@ export const ChatsList = props => {
   }
 
   return <section className="chats-list">
-    {props.chats.map(el => <ChatElement chat={el} key={el.chat_id} handleChatClick={handleChatClick}/>)}
+    {props.chats.map(el => <ChatElement chat={el} key={el.room_id} handleChatClick={handleChatClick}/>)}
+    {props.chats.length === 0 && (
+      <p>У Вас пока нет активных диалогов</p>
+    )}
   </section>
 }

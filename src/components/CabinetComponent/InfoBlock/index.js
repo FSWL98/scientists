@@ -506,17 +506,22 @@ export const InfoBlock = props => {
             <>
               <div className="item">
                 <span className="image-container"><img src={location} alt="location" /></span>
-                <span>{info.Bigregion ? `${regions.find(el => el.code === info.Bigregion).name}, ${info.region}` : 'Не указан'}</span>
+                <span>
+                  {info.Bigregion ?
+                    `${regions.find(el => el.code === info.Bigregion).name}, 
+                    ${info.region || 'Регион не указан'}`
+                    : 'Hе указан'}
+                </span>
+              </div>
+              <div className="item moved">
+                <span className="image-container"><img src={degree} alt="degree" /></span>
+                <span>{info.academicDegree || 'Не указан'}</span>
               </div>
               <div className="item">
                 <span className="image-container"><img src={expertise} alt="expertise" /></span>
                 <span>{info.codeSpeciality || 'Не указан'}</span>
               </div>
-              <div className="item">
-                <span className="image-container"><img src={degree} alt="degree" /></span>
-                <span>{info.academicDegree || 'Не указан'}</span>
-              </div>
-              <div className="item">
+              <div className="item moved">
                 <span className="image-container"><img src={medal} alt="medal" /></span>
                 <span>{info.academicTitle || 'Не указан'}</span>
               </div>

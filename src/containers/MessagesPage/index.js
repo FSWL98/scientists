@@ -14,24 +14,30 @@ export const MessagesPage = props => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    setChats(ch);
+    const chatsSocket = new WebSocket(`${wsURL}/`);
+    chatsSocket.onopen = () => {
+      console.log('chats list connection opened');
+    }
+    chatsSocket.onmessage = e => {
+      setChats(JSON.parse(e.data).chats)
+    }
   }, []);
 
   const handleChatSelect = id => {
-    setActiveChat(chats.find(el => el.chat_id === id));
+    setActiveChat(chats.find(el => el.room_id === id));
   }
 
   const sendMessage = msg => {
     socket.send(JSON.stringify({
       command: 'send',
-      room: 1,
+      room: activeChat.room_id,
       message: msg,
     }));
   }
 
   useEffect(() => {
     if (activeChat)
-      setSocket(new WebSocket(`${wsURL}/chat/1/`));
+      setSocket(new WebSocket(`${wsURL}/chat/${activeChat.room_id}/`));
     return () => {
       if (socket)
         socket.close(1000, 'opening new chat');
@@ -47,15 +53,20 @@ export const MessagesPage = props => {
         }));
         socket.send(JSON.stringify({
           command: 'join',
-          room: 1
+          room: activeChat.room_id
         }));
+        socket.send(JSON.stringify({
+          command: 'get_room_chat_messages',
+          room: activeChat.room_id
+        }))
         console.log('new connection is opened');
       }
       socket.onmessage = e => {
-        console.log(e);
-        console.log(e.data);
-        console.log(e.message);
-        setMessages([...messages, e]);
+        const data = JSON.parse(e.data);
+        if (data.command === 'send')
+          setMessages([...messages, data]);
+        else if (data.command === 'get_room_chat_messages')
+          setMessages(data.messages);
       }
     }
   }, [socket])

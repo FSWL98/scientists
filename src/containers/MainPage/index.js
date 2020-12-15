@@ -22,7 +22,7 @@ export const MainPage = props => {
 
   const getPoints = () => {
     setLoading(true);
-    scientistsService.getPoints(currentDistrict.code, currentRegion.name, currentDegree.code, currentMajor.code, keyWords)
+    scientistsService.getPoints(currentDistrict.code, currentRegion.name, currentMajor.name, currentDegree.name, keyWords)
       .then(response => {
         setPoints(response);
         setLoading(false);
