@@ -92,7 +92,7 @@ export default class scientistsService extends AuthService {
       query += `${query === '' ? '?' : '&'}academicDegree=${title}`;
     }
     if (keyword) {
-      query += `${query === '' ? '?' : '&'}keyWords=${keyword.split(' ').join(';')}`;
+      query += `${query === '' ? '?' : '&'}keywords=${keyword.split(' ').join(';')}`;
     }
     const response = this.request(
       `${baseURL}/api/v1/getpoints/${query}`,
