@@ -57,11 +57,16 @@ export default class AuthService extends BaseService {
     });
   }
 
-  static async authRequest (url, options, content = 'application/json') {
+  static async authRequest (url, options, content = true) {
     options.headers = {
-      Authorization: `Token ${this.getAuthToken()}`,
-      'Content-Type': content,
+      Authorization: `Token ${this.getAuthToken()}`
     };
+    if (content) {
+      options.headers = {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${this.getAuthToken()}`
+      }
+    }
     options.mode = 'cors';
     const response = await fetch(url, options);
     return this.parseResponse(response, true, 'token');

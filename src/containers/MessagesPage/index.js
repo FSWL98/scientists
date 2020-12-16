@@ -81,7 +81,7 @@ export const MessagesPage = props => {
         socket.send(JSON.stringify({
           command: 'get_room_chat_messages',
           room: activeChat.room_id,
-          pageNumber: 1
+          pagenumber: 1
         }))
         console.log('new connection is opened');
       }

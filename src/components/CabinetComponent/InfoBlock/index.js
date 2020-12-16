@@ -22,6 +22,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import {FormControl} from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import scientistsService from "../../../services/scientistsService";
+import AuthService from "../../../services/AuthService";
 
 export const InfoBlock = props => {
   const [info, setInfo] = useState({
@@ -161,7 +162,7 @@ export const InfoBlock = props => {
         if (!blob) {
           return;
         }
-        blob.name = 'avatar.jpeg';
+        blob.name = 'avatar';
         resolve(blob);
       }, 'image/*');
     })
@@ -201,9 +202,21 @@ export const InfoBlock = props => {
       hide_email: info.hide_email
     }
     if (info.newImageFile) {
-      data.image = new File([info.newImageFile], `avatar.png`, { type: 'image/png', path: 'avatar.png' });
+      data.image = new File(
+        [info.newImageFile],
+        `avatar_${info.id}.${info.newImageFile.type.split('/')[1]}`,
+        { type: info.newImageFile.type }
+      );
     }
-    scientistsService.patchUser(data, info.id).then(() => setLoading(false));
+    scientistsService.patchUser(data, info.id).then(response => {
+      if (response.image) {
+        const user = AuthService.getUserLocal();
+        user.image = response.image;
+        user.name = `${response.surname} ${response.name} ${response.patronymic}`
+        localStorage.setItem('user', JSON.stringify(user));
+      }
+      setLoading(false);
+    });
   }
 
   const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({
@@ -312,7 +325,7 @@ export const InfoBlock = props => {
         <section className="info-block_image">
           <span className="section-title">Изменить фотографию профиля</span>
           <div {...getRootProps({className: "change-photo"})}>
-            <input {...getInputProps()} />
+            <input {...getInputProps()} accept="image/png, image/jpg, image/jpeg"/>
             <img src={info.image} alt="image" className="full-image" />
             <div className="fade">Изменить</div>
           </div>
