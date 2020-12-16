@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { chats as ch } from "./consts";
 import {SideBlock} from "../../components/SideBlock";
 import {ButtonsGroup} from "../../components/ButtonsGroup";
@@ -13,16 +14,9 @@ export const MessagesPage = props => {
   const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
   const [messages, setMessages] = useState([]);
+  const history = useHistory();
 
-  useEffect(() => {
-    if (window.location.search) {
-      const id = parseInt(window.location.search.split('?start=')[1], 10);
-      if (id) {
-        scientistsService.createChat(AuthService.getUserLocal().id, id).then(response => {
-          handleChatSelect(parseInt(response.room_id, 10));
-        })
-      }
-    }
+  const initChatSocket = () => {
     const chatsSocket = new WebSocket(`${wsURL}/roomlist/`);
     chatsSocket.onopen = () => {
       console.log('chats list connection opened');
@@ -39,13 +33,33 @@ export const MessagesPage = props => {
       if (data.command === 'get_list')
         setChats(data.roomlist);
     }
-    return () => {
-      chatsSocket.close();
+    return chatsSocket;
+  }
+
+  useEffect(() => {
+    let chatsSocket
+    if (window.location.search) {
+      const id = parseInt(window.location.search.split('?chat=')[1], 10);
+      if (id) {
+        scientistsService.createChat(AuthService.getUserLocal().id, id).then(response => {
+          setActiveChat(chats.find(el => el.room_id === parseInt(response.room_id, 10)));
+          chatsSocket = initChatSocket();
+        })
+      }
+      return () => {
+        chatsSocket.close();
+      }
     }
-  }, []);
+    else {
+      chatsSocket = initChatSocket();
+      return () => {
+        chatsSocket.close();
+      }
+    }
+  }, [window.location.search]);
 
   const handleChatSelect = id => {
-    setActiveChat(chats.find(el => el.room_id === id));
+    history.push(`/scientists/messages?chat=${id}`);
   }
 
   const sendMessage = msg => {

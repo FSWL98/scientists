@@ -21,7 +21,7 @@ export const ActiveChat = props => {
           </div>
           <div className="messages">
             {props.messages.map(msg => (
-              <div className={`messages_item ${msg.user_id === AuthService.getUserLocal().id ? 'sent' : 'received'}`}>
+              <div className={`messages_item ${parseInt(msg.user_id, 10) === AuthService.getUserLocal().id ? 'sent' : 'received'}`}>
                 <span className="author">{msg.username}</span>
                 <span className="text">{msg.message}</span>
                 <span className="time">Вчера, 19:40</span>
