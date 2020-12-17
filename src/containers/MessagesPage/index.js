@@ -42,7 +42,7 @@ export const MessagesPage = props => {
     if (window.location.search) {
       const id = parseInt(window.location.search.split('?chat=')[1], 10);
       if (id) {
-        scientistsService.createChat(AuthService.getUserLocal().id, id).then(response => {
+        scientistsService.createChat(`${AuthService.getUserLocal().id}`, `${id}`).then(response => {
           setActiveChat(chats.find(el => el.room_id === parseInt(response.room_id, 10)));
           chatsSocket = initChatSocket();
         })
