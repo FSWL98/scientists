@@ -32,7 +32,7 @@ export default class AuthService extends BaseService {
   static async login (password, email) {
     const options = {
       method: 'POST',
-      mode: 'cors',
+      mode: 'no-cors',
       body: JSON.stringify({
         email,
         password,
@@ -67,14 +67,14 @@ export default class AuthService extends BaseService {
         Authorization: `Token ${this.getAuthToken()}`
       }
     }
-    options.mode = 'cors';
+    options.mode = 'no-cors';
     const response = await fetch(url, options);
     return this.parseResponse(response, true, 'token');
   }
 
   static async checkAuth () {
     const options = {
-      mode: 'cors',
+      mode: 'no-cors',
       method: 'GET',
       headers: {
         Authorization: `${this.getAuthToken()}`,

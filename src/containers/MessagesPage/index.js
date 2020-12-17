@@ -37,6 +37,7 @@ export const MessagesPage = props => {
   }
 
   useEffect(() => {
+    console.log('url changed');
     let chatsSocket
     if (window.location.search) {
       const id = parseInt(window.location.search.split('?chat=')[1], 10);
@@ -102,8 +103,10 @@ export const MessagesPage = props => {
       socket.onmessage = e => {
         const data = JSON.parse(e.data);
         console.log(data);
-        if (data.command === 'send')
-          setMessages([...messages, data]);
+        if (data.command === 'send') {
+          const array = messages;
+          setMessages([...array, data])
+        }
         else if (data.command === 'get_room_chat_messages')
           setMessages(data.messages);
       }

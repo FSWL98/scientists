@@ -5,7 +5,7 @@ export default class scientistsService extends AuthService {
   static async getScientist (id) {
     const options = {
       method: 'GET',
-      mode: 'cors',
+      mode: 'no-cors',
     };
     const response = this.authRequest(
       `${baseURL}/api/v1/scientistprofile/${id}/`,
@@ -17,7 +17,7 @@ export default class scientistsService extends AuthService {
   static async getNews (page, size) {
     const options = {
       method: 'GET',
-      mode: 'cors',
+      mode: 'no-cors',
     };
     const response = this.request(
       `${baseURL}/api/v1/news/all?page=${page}&size=${size}`,
@@ -29,7 +29,7 @@ export default class scientistsService extends AuthService {
   static async getNewsCount () {
     const options = {
       method: 'GET',
-      mode: 'cors',
+      mode: 'no-cors',
     };
     const response = this.request(
       `${baseURL}/api/v1/news/count/`,
@@ -43,7 +43,7 @@ export default class scientistsService extends AuthService {
     Object.keys(data).map(el => formData.append(el, data[el]));
     const options = {
       method: 'PATCH',
-      mode: 'cors',
+      mode: 'no-cors',
       body: formData,
     };
     const response = this.authRequest(
@@ -57,7 +57,7 @@ export default class scientistsService extends AuthService {
   static async createChat(user1_id, user2_id) {
     const options = {
       method: 'POST',
-      mode: 'cors',
+      mode: 'no-cors',
       body: JSON.stringify({
         user1_id,
         user2_id
@@ -73,7 +73,7 @@ export default class scientistsService extends AuthService {
   static async getPoints (big = '', region = '', spec = '', title = '', keyword = '') {
     const options = {
       method: 'GET',
-      mode: 'cors',
+      mode: 'no-cors',
     };
     let query = '';
     if (big) {
