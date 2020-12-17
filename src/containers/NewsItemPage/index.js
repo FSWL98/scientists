@@ -12,7 +12,7 @@ export const NewsItemPage = props => {
   useEffect(() => {
     const request = fetch(`${baseURL}/api/v1/news/${props.match.params.newsID}/`, {
       method: 'GET',
-      mode: 'no-cors',
+      mode: 'cors',
     }).then(response => {
       return response.json();
     }).then(resp => {

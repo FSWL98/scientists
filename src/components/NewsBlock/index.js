@@ -9,7 +9,10 @@ export const NewsBlock = () => {
 
   useEffect(() => {
     setLoading(true);
-    scientistsService.getNews(0, 3).then(response => setNews(response));
+    scientistsService.getNews(0, 3).then(response => {
+      console.log(response);
+      setNews(response);
+    });
   }, []);
   return (
     <div className="news-block">
