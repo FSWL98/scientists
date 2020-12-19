@@ -11,6 +11,7 @@ import {MessagesPage} from "./containers/MessagesPage";
 
 function App() {
   useEffect(() => {
+    console.log(process.env);
     if (AuthService.getAuthToken())
       AuthService.checkAuth().then(response => {
         if (response.status !== 200) {
