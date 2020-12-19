@@ -37,7 +37,7 @@ export const ButtonsGroup = () => {
       .catch(err => {
         setModal({...modal, password: '', error: true })
       });
-  }
+  };
 
   const user = AuthService.getUserLocal();
   return (
