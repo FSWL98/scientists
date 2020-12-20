@@ -25,15 +25,15 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/scientists/main" component={MainPage} />
-        <Route exact path="/scientists/profile" component={CabinetPage} />
-        <Route exact path="/scientists/profile/edit" component={CabinetPage} />
-        <Route exact path="/scientists/profile/:id" component={CabinetPage} />
-        <Route exact path="/scientists/news" component={NewsPage} />
-        <Route exact path="/scientists/news/:newsID" component={NewsItemPage} />
-        <Route exact path="/scientists/messages" component={MessagesPage} />
-        <Redirect from="/" to="/scientists/main"/>
-        <Redirect from="/scientists" to="/scientists/main"/>
+        <Route exact path="/main" component={MainPage} />
+        <Route exact path="/profile" component={CabinetPage} />
+        <Route exact path="/profile/edit" component={CabinetPage} />
+        <Route exact path="/profile/:id" component={CabinetPage} />
+        <Route exact path="/news" component={NewsPage} />
+        <Route exact path="/news/:newsID" component={NewsItemPage} />
+        <Route exact path="/messages" component={MessagesPage} />
+        <Redirect from="/" to="/main"/>
+        <Redirect from="/scientists" to="/main"/>
       </Switch>
     </BrowserRouter>
   );

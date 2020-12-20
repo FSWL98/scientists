@@ -21,7 +21,7 @@ export const NewsBlock = () => {
         {news.map((el, index) => {
           if (index < 6) {
             return (
-              <Link className="news-block_element" key={el.id} to={`/scientists/news/${el.id}`}>
+              <Link className="news-block_element" key={el.id} to={`/news/${el.id}`}>
                 <span className="news-date">{el.date}</span>
                 <span className="news-title">{el.headLine}</span>
               </Link>

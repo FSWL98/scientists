@@ -26,7 +26,7 @@ export const CabinetComponent = props => {
       });
     }
     else if (!props.match.params.id && !props.match.path.includes('edit')) {
-      history.push(`/scientists/profile/${AuthService.getUserLocal().id}`);
+      history.push(`/profile/${AuthService.getUserLocal().id}`);
     }
     else {
       scientistsService.getScientist(props.match.params.id || AuthService.getUserLocal().id)
@@ -69,7 +69,7 @@ export const CabinetComponent = props => {
           </div>
           <div className="contacts">
             {dataState.person.id !== AuthService.getUserLocal().id && (
-              <Link to={`/scientists/messages?chat=${dataState.person.id}`}>Написать сообщение</Link>
+              <Link to={`/messages?chat=${dataState.person.id}`}>Написать сообщение</Link>
             )}
             <a href={`tel:${dataState.person.phone}`} className="phone">
               {dataState.person.phone || 'Телефон не указан'}

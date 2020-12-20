@@ -6,10 +6,10 @@ export const NavigationLinks = props => {
   const { path } = props.match;
   return (
     <div className="navigation-links">
-      <Link to="/scientists/profile" className={path === '/scientists/profile/:id' ? 'active' : ''}>Личный кабинет</Link>
-      <Link to="/scientists/main" className={path === '/scientists/main' ? 'active' : ''}>Вернуться на главную</Link>
-      <Link to="/scientists/messages" className={path === '/scientists/messages' ? 'active' : ''}>Сообщения</Link>
-      <Link to="/scientists/profile/edit" className={path === '/scientists/profile/edit' ? 'active' : ''}>Редактировать профиль</Link>
+      <Link to="/profile" className={path === '/profile/:id' ? 'active' : ''}>Личный кабинет</Link>
+      <Link to="/main" className={path === '/main' ? 'active' : ''}>Вернуться на главную</Link>
+      <Link to="/messages" className={path === '/messages' ? 'active' : ''}>Сообщения</Link>
+      <Link to="/profile/edit" className={path === '/profile/edit' ? 'active' : ''}>Редактировать профиль</Link>
     </div>
   )
 };

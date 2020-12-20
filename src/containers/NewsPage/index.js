@@ -27,7 +27,7 @@ export const NewsPage = props => {
   return (
     <div className="news-page">
       <header>
-        <Link to='/scientists/main'><img src={logo} alt="logo" /></Link>
+        <Link to='/main'><img src={logo} alt="logo" /></Link>
         <ButtonsGroup />
       </header>
       <section className="news-page_content">
@@ -44,7 +44,7 @@ export const NewsPage = props => {
         {!loading && (
           <div className="news-page_content__news">
             {news.map(el => (
-              <Link className="element" key={el.id} to={`/scientists/news/${el.id}`}>
+              <Link className="element" key={el.id} to={`/news/${el.id}`}>
                 <span className="news-date">{el.date}</span>
                 <span className="news-title">{el.headLine}</span>
               </Link>
@@ -61,7 +61,7 @@ export const NewsPage = props => {
           onChange={(ev, value) => setPage(value)}
           size={document.body.clientWidth > 1600 ? 'large' : 'medium'}
         />
-        <Link to="/scientists/main" className="to-main-link">На главную</Link>
+        <Link to="/main" className="to-main-link">На главную</Link>
       </section>
     </div>
   )

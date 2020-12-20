@@ -43,8 +43,8 @@ export const NewsItemPage = props => {
           <p>{item.announce}</p>
         </div>
         <div className="links-container">
-          <Link to="/scientists/main">Вернуться на главную</Link>
-          <Link to="/scientists/news">Все новости</Link>
+          <Link to="/main">Вернуться на главную</Link>
+          <Link to="/news">Все новости</Link>
         </div>
       </section>
     </div>

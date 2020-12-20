@@ -32,7 +32,7 @@ export const ButtonsGroup = () => {
     event.preventDefault();
     AuthService.login(modal.password, modal.username)
       .then(response => {
-        history.go('/scientists/cabinet');
+        history.go('/cabinet');
       })
       .catch(err => {
         setModal({...modal, password: '', error: true })
@@ -83,18 +83,18 @@ export const ButtonsGroup = () => {
         </p>
       </Dialog>
       <Button className="default"><img src={how}/>Как это работает?</Button>
-      <Link className="default" to="/scientists/news"><img src={news}/><span>Новости</span></Link>
+      <Link className="default" to="/news"><img src={news}/><span>Новости</span></Link>
       {!isLogged && (
         <Button className="primary" onClick={() => setModal({ show: true, username: '', password: '' })}>Войти в систему</Button>
       )}
       {isLogged && (
         <div className="logged-button">
-          <Link className="main" to="/scientists/profile">
+          <Link className="main" to="/profile">
             <span className="image-container"><img src={AuthService.getUserLocal().image} alt="" /></span>
             <span>{user.name.split(' ')[0]} {user.name.split(' ')[1][0]}. {`${user.name.split(' ')[2] ? user.name.split(' ')[2][0] + '.' : ''}`}</span>
           </Link>
           <div className="hovered">
-            <Link className="line" to="/scientists/profile/edit">
+            <Link className="line" to="/profile/edit">
               <span className="image-container"><img src={settings} alt="" /></span>
               <span>Настройки</span>
             </Link>

@@ -60,7 +60,7 @@ export const MessagesPage = props => {
   }, [window.location.search]);
 
   const handleChatSelect = id => {
-    history.push(`/scientists/messages?chat=${id}`);
+    history.push(`/messages?chat=${id}`);
   }
 
   const sendMessage = msg => {
