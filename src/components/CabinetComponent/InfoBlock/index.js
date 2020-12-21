@@ -368,6 +368,9 @@ export const InfoBlock = props => {
               onChange={ev => handleChange(ev.target.value, ev.target.id)}
               label="Номер телефона"
             />
+          </div>
+          <span className="section-title">E-library</span>
+          <div className="section-content">
             <TextField
               value={info.elib_link}
               id="elib_link"
@@ -380,6 +383,9 @@ export const InfoBlock = props => {
               onChange={ev => handleChange(ev.target.value, ev.target.id)}
               label="ID в системе ELibrary"
             />
+          </div>
+          <span className="section-title">Scopus</span>
+          <div className="section-content">
             <TextField
               value={info.h_Scopus}
               id="h_Scopus"
@@ -393,6 +399,9 @@ export const InfoBlock = props => {
               onChange={ev => handleChange(ev.target.value, ev.target.id)}
               label="Ссылка на профиль в системе Scopus"
             />
+          </div>
+          <span className="section-title">Web of Science</span>
+          <div className="section-content">
             <TextField
               value={info.h_WebOfScience}
               id="h_WebOfScience"

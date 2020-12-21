@@ -31,7 +31,7 @@ export const MainPage = props => {
   return (
     <div className="main-page">
       <SideBlock
-        page={props.match.path.split('/', 3)[2]}
+        page="main"
         match={props.match}
         currentDistrict={currentDistrict}
         setDistrict={setDistrict}
