@@ -1,4 +1,4 @@
-.ymaps-2-1-77 {
+.ymaps-2-1-78 {
   &-map {
     &-bg {
       background-image: none !important;
@@ -38,6 +38,9 @@
   &-balloon {
     width: 600px;
     box-shadow: none !important;
+    &-content__header {
+      display: none !important;
+    }
     &__layout {
       padding: 10px 25px 10px 10px !important;
       border-radius: 20px !important;
@@ -48,6 +51,8 @@
     }
     &__content {
       width: 580px !important;
+      max-height: 250px !important;
+      overflow-y: overlay !important;
       & > *{
         overflow-y: scroll !important;
         overflow-x: hidden !important;
@@ -59,7 +64,7 @@
     }
     .balloon-content {
       max-width: 350px;
-      max-height: 300px;
+      max-height: 280px;
       padding: 10px;
       font-family: "Montserrat", sans-serif;
       &_person {

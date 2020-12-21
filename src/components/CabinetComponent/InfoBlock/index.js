@@ -216,7 +216,8 @@ export const InfoBlock = props => {
         localStorage.setItem('user', JSON.stringify(user));
       }
       setLoading(false);
-    });
+    })
+      .catch(() => setLoading(false));
   }
 
   const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({
@@ -530,7 +531,7 @@ export const InfoBlock = props => {
                 <span className="image-container"><img src={location} alt="location" /></span>
                 <span>
                   {info.Bigregion ?
-                    `${regions.find(el => el.code === info.Bigregion).name}, 
+                    `${regions.find(el => el.code === info.Bigregion).name},
                     ${info.region || 'Регион не указан'}`
                     : 'Hе указан'}
                 </span>
@@ -552,6 +553,16 @@ export const InfoBlock = props => {
                 {info.job_place && (<span>{info.job_place}, {info.position || 'Позиция не указана'}</span>)}
                 {!info.job_place && (<span>Не указан</span>)}
               </div>
+              {info.dier_sovet && (
+                <div className="item">
+                  <span className="text"><strong>Диссертационный совет -</strong> {info.dier_sovet}</span>
+                </div>
+              )}
+              {info.editorial_boards && (
+                <div className="item">
+                  <span className="text"><strong>Редакционная коллегия -</strong> {info.editorial_boards}</span>
+                </div>
+              )}
             </>
           )}
         </div>
