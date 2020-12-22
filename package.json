@@ -19,6 +19,7 @@
     "babel-preset-react-app": "^9.1.2",
     "camelcase": "^5.3.1",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^3.4.2",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
@@ -41,6 +42,7 @@
     "jest-watch-typeahead": "0.4.2",
     "mini-css-extract-plugin": "0.9.0",
     "node": "latest",
+    "node-sass": "^5.0.0",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.6.4",
     "postcss-flexbugs-fixes": "4.1.0",
@@ -59,7 +61,7 @@
     "react-yandex-maps": "^4.4.0",
     "resolve": "1.15.0",
     "resolve-url-loader": "3.1.2",
-    "sass-loader": "8.0.2",
+    "sass-loader": "10.0.5",
     "semver": "6.3.0",
     "serve": "^11.3.2",
     "style-loader": "0.23.1",
@@ -73,8 +75,8 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "start": "cross-env NODE_ENV=development node scripts/start.js",
+    "build": "cross-env NODE_ENV=production BUILD_ENV=production node scripts/build.js",
     "test": "node scripts/test.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"

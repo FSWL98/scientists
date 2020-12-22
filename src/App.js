@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.scss';
 import {MainPage} from "./containers/MainPage";
@@ -8,34 +8,50 @@ import {CabinetPage} from "./containers/CabinetPage";
 import AuthService from "./services/AuthService";
 import {NewsPage} from "./containers/NewsPage";
 import {MessagesPage} from "./containers/MessagesPage";
+import Dialog from "@material-ui/core/Dialog";
+import Button from "@material-ui/core/Button";
 
 function App() {
+  const [modal, setModal] = useState(false);
+
   useEffect(() => {
-    console.log(process.env);
     if (AuthService.getAuthToken())
       AuthService.checkAuth().then(response => {
         if (response.status !== 200) {
           AuthService.logout();
           window.location.reload();
         }
-      })
-    else localStorage.removeItem('user')
+      });
+    else localStorage.removeItem('user');
+    if (document.body.clientWidth < 1200) {
+      setModal(true);
+    }
   }, []);
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/main" component={MainPage} />
-        <Route exact path="/profile" component={CabinetPage} />
-        <Route exact path="/profile/edit" component={CabinetPage} />
-        <Route exact path="/profile/:id" component={CabinetPage} />
-        <Route exact path="/news" component={NewsPage} />
-        <Route exact path="/news/:newsID" component={NewsItemPage} />
-        <Route exact path="/messages" component={MessagesPage} />
-        <Redirect from="/" to="/main"/>
-        <Redirect from="/scientists" to="/main"/>
-      </Switch>
-    </BrowserRouter>
+    <>
+      <Dialog open={modal} onClose={() => setModal(false)}>
+        <div className="not-working-modal">
+          <h4>Внимание!</h4>
+          <p>На данный момент сайт корректно отображается лишь на устройствах с шириной экрана от 1200px.
+            На Вашем устройстве элементы сайта могут отображаться некорректно и быть недоступными. Приносим извинения
+            за доставленные неудобства</p>
+          <Button variant="contained" className="primary" onClick={() => setModal(false)}>Понял</Button>
+        </div>
+      </Dialog>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/main" component={MainPage} />
+          <Route exact path="/profile" component={CabinetPage} />
+          <Route exact path="/profile/edit" component={CabinetPage} />
+          <Route exact path="/profile/:id" component={CabinetPage} />
+          <Route exact path="/news" component={NewsPage} />
+          <Route exact path="/news/:newsID" component={NewsItemPage} />
+          <Route exact path="/messages" component={MessagesPage} />
+          <Redirect from="/" to="/main"/>
+          <Redirect from="/scientists" to="/main"/>
+        </Switch>
+      </BrowserRouter></>
   );
 }
 

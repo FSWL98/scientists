@@ -13,6 +13,10 @@
     width: 80%;
     text-align: center;
     border-right: 1px solid #E2EEFF;
+    padding-right: 40px;
+    @media screen and (max-width: 1480px) {
+      padding: 0 15px;
+    }
     .person {
       text-align: center;
       img {

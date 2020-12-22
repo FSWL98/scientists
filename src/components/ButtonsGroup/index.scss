@@ -192,3 +192,24 @@
     }
   }
 }
+.how-to-modal {
+  padding: 20px 30px;
+  h4 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+  ul {
+    li {
+      font-family: "Montserrat", sans-serif;
+    }
+  }
+  p {
+    font-family: "Montserrat", sans-serif;
+  }
+  button {
+    border-radius: 30px;
+    padding: 12px 25px;
+    margin: 0 auto;
+  }
+}

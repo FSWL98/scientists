@@ -9,12 +9,13 @@
     padding: 0 100px 0 70px;
     overflow-y: overlay;
     vertical-align: top;
-    @media screen and (max-width: 1350px) {
+    @media screen and (max-width: 1480px) {
       padding-right: 40px;
-      width: calc(100% - 482px);
+      padding-left: 20px;
+      width: calc(73% - 60px);
     }
-    @media screen and (max-width: 1260px){
-      width: calc(100% - 462px);
+    @media screen and (max-width: 1261px){
+      width: calc(100% - 401px);
     }
   }
 }

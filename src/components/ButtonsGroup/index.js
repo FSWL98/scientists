@@ -22,6 +22,7 @@ export const ButtonsGroup = () => {
     password: '',
     error: false,
   });
+  const [howToModal, setHowToModal] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -82,7 +83,22 @@ export const ButtonsGroup = () => {
           Для получения логина и пароля Вам необходимо отправить резюме на почту example@mail.ru
         </p>
       </Dialog>
-      <Button className="default"><img src={how}/>Как это работает?</Button>
+      <Dialog open={howToModal} onClose={() => setHowToModal(false)}>
+        <div className="how-to-modal">
+          <h4>Как это работает?</h4>
+          <ul>
+            <li>Да никак</li>
+            <li>Вообще ужасно</li>
+            <li>Хотя если подумать</li>
+            <li>В принципе, не очень плохо</li>
+          </ul>
+          <p>
+            А тут просто текст, если что, можно поменять местами ul и p тэги, если текст нужен выше буллет-листа
+          </p>
+          <Button className="primary" onClick={() => setHowToModal(false)}>Понятно</Button>
+        </div>
+      </Dialog>
+      <Button className="default" onClick={() => setHowToModal(true)}><img src={how}/>Как это работает?</Button>
       <Link className="default" to="/news"><img src={news}/><span>Новости</span></Link>
       {!isLogged && (
         <Button className="primary" onClick={() => setModal({ show: true, username: '', password: '' })}>Войти в систему</Button>
