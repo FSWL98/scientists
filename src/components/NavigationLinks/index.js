@@ -8,7 +8,7 @@ export const NavigationLinks = props => {
     <div className="navigation-links">
       <Link to="/profile" className={path === '/profile/:id' ? 'active' : ''}>Личный кабинет</Link>
       <Link to="/main" className={path === '/main' ? 'active' : ''}>Вернуться на главную</Link>
-      <Link to="/messages" className={path === '/messages' ? 'active' : ''}>Сообщения</Link>
+      <Link to="/messages" className={path === '/messages' || path === '/messages/:chatId' ? 'active' : ''}>Сообщения</Link>
       <Link to="/profile/edit" className={path === '/profile/edit' ? 'active' : ''}>Редактировать профиль</Link>
     </div>
   )

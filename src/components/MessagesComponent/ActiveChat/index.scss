@@ -32,8 +32,10 @@
     }
   }
   .messages {
+    height: 500px;
+    overflow-y: overlay;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     padding: 15px 30px;
     &_item {
       padding: 10px 30px;
@@ -58,7 +60,7 @@
       }
       &.sent {
         align-self: flex-end;
-        background: #596EEF;
+        background: #c2cedf;
       }
       &.received {
         align-self: flex-start;

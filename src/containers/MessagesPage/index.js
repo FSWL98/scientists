@@ -16,11 +16,6 @@ export const MessagesPage = props => {
   const [messages, setMessages] = useState([]);
   const history = useHistory();
 
-  const initChatSocket = () => {
-
-    return chatsSocket;
-  }
-
   useEffect(() => {
     const chatsSocket = new WebSocket(`${wsURL}/roomlist/`);
     chatsSocket.onopen = () => {
