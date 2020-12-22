@@ -30,6 +30,7 @@ export const MessagesPage = props => {
     }
     chatsSocket.onmessage = e => {
       const data = JSON.parse(e.data);
+      console.log(data);
       if (data.command === 'get_list')
         setChats(data.roomlist);
     }
