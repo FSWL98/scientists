@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { chats as ch } from "./consts";
 import {SideBlock} from "../../components/SideBlock";
@@ -14,7 +14,12 @@ export const MessagesPage = props => {
   const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
   const [messages, setMessages] = useState([]);
+  const messagesRef = useRef(messages);
   const history = useHistory();
+
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
 
   useEffect(() => {
     const chatsSocket = new WebSocket(`${wsURL}/roomlist/`);
@@ -86,7 +91,8 @@ export const MessagesPage = props => {
         const data = JSON.parse(e.data);
         console.log(data);
         if (data.command === 'send') {
-          const array = messages;
+          console.log(messagesRef.current);
+          const array = messagesRef.current;
           console.log(array);
           setMessages([...array, data])
         }
