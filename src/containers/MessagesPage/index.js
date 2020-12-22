@@ -12,12 +12,7 @@ import scientistsService from "../../services/scientistsService";
 export const MessagesPage = props => {
   const [socket, setSocket] = useState(undefined);
   const [chats, setChats] = useState([]);
-  const [activeChat, setActiveChat] = useState({
-    friend_id: 3,
-    friend_name: 'Oleg',
-    friend_surname: 'Olegoi',
-    messages: []
-  });
+  const [activeChat, setActiveChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const messagesRef = useRef(messages);
   const history = useHistory();
