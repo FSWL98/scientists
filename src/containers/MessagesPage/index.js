@@ -17,6 +17,11 @@ export const MessagesPage = props => {
   const history = useHistory();
 
   const initChatSocket = () => {
+
+    return chatsSocket;
+  }
+
+  useEffect(() => {
     const chatsSocket = new WebSocket(`${wsURL}/roomlist/`);
     chatsSocket.onopen = () => {
       console.log('chats list connection opened');
@@ -27,42 +32,23 @@ export const MessagesPage = props => {
       chatsSocket.send(JSON.stringify({
         command: 'get_list'
       }))
-    }
+    };
     chatsSocket.onmessage = e => {
       const data = JSON.parse(e.data);
       console.log(data);
-      if (data.command === 'get_list')
+      if (data.command === 'get_list') {
         setChats(data.roomlist);
-    }
-    return chatsSocket;
-  }
-
-  useEffect(() => {
-    console.log('url changed');
-    let chatsSocket
-    if (window.location.search) {
-      const id = parseInt(window.location.search.split('?chat=')[1], 10);
-      if (id) {
-        scientistsService.createChat(`${AuthService.getUserLocal().id}`, `${id}`).then(response => {
-          setActiveChat(chats.find(el => el.room_id === parseInt(response.room_id, 10)));
-          chatsSocket = initChatSocket();
-        })
+        if (props.match.params.chatId) {
+          setActiveChat(data.roomlist.find(el => parseInt(el.room_id, 10) === parseInt(props.match.params.chatId, 10)));
+        }
       }
-      return () => {
-        chatsSocket.close();
-      }
-    }
-    else {
-      chatsSocket = initChatSocket();
-      return () => {
-        chatsSocket.close();
-      }
-    }
-  }, [window.location.search]);
+    };
+  }, []);
 
   const handleChatSelect = id => {
-    history.push(`/messages?chat=${id}`);
-  }
+    history.push(`/messages/${id}`);
+    setActiveChat(chats.find(el => parseInt(el.room_id, 10) === parseInt(id, 10)));
+  };
 
   const sendMessage = msg => {
     socket.send(JSON.stringify({
@@ -70,7 +56,7 @@ export const MessagesPage = props => {
       room: activeChat.room_id,
       message: msg,
     }));
-  }
+  };
 
   useEffect(() => {
     if (activeChat) {
@@ -106,6 +92,7 @@ export const MessagesPage = props => {
         console.log(data);
         if (data.command === 'send') {
           const array = messages;
+          console.log(array);
           setMessages([...array, data])
         }
         else if (data.command === 'get_room_chat_messages')

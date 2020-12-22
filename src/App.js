@@ -48,6 +48,7 @@ function App() {
           <Route exact path="/news" component={NewsPage} />
           <Route exact path="/news/:newsID" component={NewsItemPage} />
           <Route exact path="/messages" component={MessagesPage} />
+          <Route exact path="/messages/:chatId" component={MessagesPage} />
           <Redirect from="/" to="/main"/>
           <Redirect from="/scientists" to="/main"/>
         </Switch>
