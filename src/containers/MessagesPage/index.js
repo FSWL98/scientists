@@ -64,10 +64,15 @@ export const MessagesPage = props => {
       setSocket(new WebSocket(`${wsURL}/chat/${activeChat.room_id}/`));
     }
     return () => {
-      if (socket)
+      if (socket) {
+        console.log(socket);
+        socket.send(JSON.stringify({
+          command: 'leave'
+        }));
         socket.close(1000, 'opening new chat');
+      }
     }
-  }, [activeChat])
+  }, [activeChat]);
 
   useEffect(() => {
     if (socket) {
@@ -84,23 +89,19 @@ export const MessagesPage = props => {
           command: 'get_room_chat_messages',
           room: activeChat.room_id,
           pagenumber: 1
-        }))
-        console.log('new connection is opened');
-      }
+        }));
+      };
       socket.onmessage = e => {
         const data = JSON.parse(e.data);
-        console.log(data);
         if (data.command === 'send') {
-          console.log(messagesRef.current);
           const array = messagesRef.current;
-          console.log(array);
-          setMessages([...array, data])
+          setMessages([data, ...array])
         }
         else if (data.command === 'get_room_chat_messages')
           setMessages(data.messages);
       }
     }
-  }, [socket])
+  }, [socket]);
 
   return (
     <div className="main-page">
@@ -117,4 +118,4 @@ export const MessagesPage = props => {
       </div>
     </div>
   );
-}
+};
