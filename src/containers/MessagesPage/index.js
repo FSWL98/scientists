@@ -12,7 +12,12 @@ import scientistsService from "../../services/scientistsService";
 export const MessagesPage = props => {
   const [socket, setSocket] = useState(undefined);
   const [chats, setChats] = useState([]);
-  const [activeChat, setActiveChat] = useState(null);
+  const [activeChat, setActiveChat] = useState({
+    friend_id: 3,
+    friend_name: 'Oleg',
+    friend_surname: 'Olegoi',
+    messages: []
+  });
   const [messages, setMessages] = useState([]);
   const messagesRef = useRef(messages);
   const history = useHistory();
@@ -35,7 +40,6 @@ export const MessagesPage = props => {
     };
     chatsSocket.onmessage = e => {
       const data = JSON.parse(e.data);
-      console.log(data);
       if (data.command === 'get_list') {
         setChats(data.roomlist);
         if (props.match.params.chatId) {

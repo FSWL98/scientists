@@ -9,7 +9,6 @@ export const ActiveChat = props => {
 
   useEffect(() => {
     const lastMessage = document.getElementById('last-message');
-    console.log(lastMessage);
     if (lastMessage)
       lastMessage.scrollIntoView();
   }, []);
@@ -39,7 +38,7 @@ export const ActiveChat = props => {
             ))}
           </div>
           <div className="send-message">
-            <TextField value={inputText} onChange={ev => setText(ev.target.value)} variant="outlined" />
+            <TextField value={inputText} onChange={ev => setText(ev.target.value)} variant="outlined" multiline rowsMax={6}/>
             <button
               className="send"
               type="button"
