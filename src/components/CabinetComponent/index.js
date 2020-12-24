@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import {InfoBlock} from "./InfoBlock";
 import AuthService from "../../services/AuthService";
 import scientistsService from "../../services/scientistsService";
+import Button from "@material-ui/core/Button";
 
 export const CabinetComponent = props => {
   const [dataState, setDataState] = useState({
@@ -12,6 +13,7 @@ export const CabinetComponent = props => {
     person: null,
     isLogged: AuthService.getAuthToken(),
   });
+  const [gettingRoomId, setGettingRoomId] = useState(false);
   const history = useHistory();
   useEffect(() => {
     setDataState({
@@ -69,7 +71,19 @@ export const CabinetComponent = props => {
           </div>
           <div className="contacts">
             {dataState.person.id !== AuthService.getUserLocal().id && (
-              <Link to={`/messages?chat=${dataState.person.id}`}>Написать сообщение</Link>
+              <Button
+                onClick={() => {
+                  setGettingRoomId(true);
+                  scientistsService.createChat(dataState.person.id, AuthService.getUserLocal().id)
+                    .then(response => {
+                      setGettingRoomId(false);
+                      history.push(`/messages/${response.room_id}`)
+                    })
+                }}
+                disabled={gettingRoomId}
+              >
+                {gettingRoomId ? 'Загрузка...' : 'Написать сообщение'}
+              </Button>
             )}
             <a href={`tel:${dataState.person.phone}`} className="phone">
               {dataState.person.phone || 'Телефон не указан'}

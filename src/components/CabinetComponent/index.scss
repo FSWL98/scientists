@@ -56,14 +56,14 @@
     }
     .contacts {
       margin-top: 35px;
-      a {
+      a, button {
         display: block;
         color: white;
         font-weight: 600;
         font-family: "Montserrat", sans-serif;
         background: #596eef;
-        min-width: 180px;
-        max-width: 60%;
+        min-width: 220px;
+        width: 60%;
         margin: 0 auto;
         text-decoration: none;
         padding: 18px 10px;
@@ -73,16 +73,18 @@
           background-color: #394ECF;
           transition: background-color, color 0.3s;
         }
+        @media screen and (max-width: 1800px){
+          font-size: 16px;
+        }
       }
       .phone {
         display: block;
-        min-width: 174px;
-        max-width: calc(60% - 6px);
+        min-width: 194px;
+        width: calc(60% - 26px);
         margin: 15px auto 0 auto;
         border: 3px solid #e2eeff;
         padding: 15px 10px;
         border-radius: 34px;
-        font-size: 18px;
         color: #cbcbcb;
         background: white;
         &:hover {

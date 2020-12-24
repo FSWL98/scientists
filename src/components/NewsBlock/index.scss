@@ -1,5 +1,5 @@
 .news-block {
-  margin-top: 40px;
+  margin-top: 20px;
   h4 {
     font-weight: 600;
     font-family: "Montserrat", sans-serif;
@@ -37,10 +37,10 @@
       font-family: "Montserrat", sans-serif;
       &.news-date {
         // Стили для даты новости
-        font-size: 25px;
+        font-size: 20px;
       }
       &.news-title {
-        font-size: 36px;
+        font-size: 28px;
         // Стили для заголовка новости
       }
       @media screen and (max-width: 1700px) {
@@ -48,12 +48,12 @@
           font-size: 18px;
         }
         &.news-title {
-          font-size: 32px;
+          font-size: 24px;
         }
       }
       @media screen and (max-width: 1500px) {
         &.news-title {
-          font-size: 26px;
+          font-size: 22px;
         }
       }
       @media screen and (max-width: 1300px) {

@@ -3,6 +3,7 @@ import logo from '../../../assets/logo512.png';
 import './index.scss';
 import AuthService from "../../../services/AuthService";
 import TextField from "@material-ui/core/TextField";
+import {Link} from "react-router-dom";
 
 export const ActiveChat = props => {
   const [inputText, setText] = useState('');
@@ -23,7 +24,7 @@ export const ActiveChat = props => {
         <>
           <div className="person">
             <img src={props.activeChat.friend_photo || logo} alt="avatar" />
-            <span className="name">{props.activeChat.friend_name} {props.activeChat.friend_surname}</span>
+            <Link className="name" to={`/profile/${props.activeChat.friend_id}`}>{props.activeChat.friend_name} {props.activeChat.friend_surname}</Link>
           </div>
           <div className="messages">
             {props.messages.map((msg, index) => (
@@ -33,22 +34,22 @@ export const ActiveChat = props => {
               >
                 <span className="author">{msg.username}</span>
                 <span className="text">{msg.message}</span>
-                <span className="time">Вчера, 19:40</span>
+                <span className="time">{msg.natural_timestamp}</span>
               </div>
             ))}
           </div>
-          <div className="send-message">
+          <form className="send-message" onSubmit={ev => {
+            ev.preventDefault();
+            props.sendMessage(inputText);
+            setText('');
+          }}>
             <TextField value={inputText} onChange={ev => setText(ev.target.value)} variant="outlined" multiline rowsMax={6}/>
             <button
               className="send"
-              type="button"
-              onClick={() => {
-                props.sendMessage(inputText);
-                setText('');
-              }}
+              type="submit"
               disabled={!inputText}
             />
-          </div>
+          </form>
         </>
       )}
     </section>

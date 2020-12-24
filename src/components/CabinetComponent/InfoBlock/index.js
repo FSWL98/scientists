@@ -82,6 +82,7 @@ export const InfoBlock = props => {
   };
 
   const handleSelectChange = (value, target) => {
+    console.log(target, value);
     setInfo({
       ...info,
       [target]: value,
@@ -186,9 +187,9 @@ export const InfoBlock = props => {
       scopusLink: info.scopusLink || '',
       h_Scopus: info.h_Scopus || '',
       h_WebOfScience: info.h_WebOfScience || '',
-      academicDegree: info.academicDegree || '',
-      academicTitle: info.academicTitle || '',
-      codeSpeciality: info.codeSpeciality || '',
+      academicDegree: info.academicDegree === 'none' ? '' : (info.academicDegree || ''),
+      academicTitle: info.academicTitle === 'none' ? '' : (info.academicTitle || ''),
+      codeSpeciality: info.codeSpeciality === 'none' ? '' : (info.codeSpeciality || ''),
       email: info.email || '',
       elib_link: info.elib_link || '',
       elibID: info.elibID || '',
@@ -452,11 +453,12 @@ export const InfoBlock = props => {
                 </Grid>
                 <Grid item>
                   <Select
-                    value={info.codeSpeciality}
+                    value={info.codeSpeciality || 'none'}
                     onChange={ev => handleSelectChange(ev.target.value, 'codeSpeciality')}
                     label="Специализация"
                     variant="outlined"
                   >
+                    <MenuItem value="none">Не выбрана</MenuItem>
                     {majors.map(el => (
                       <MenuItem value={el.name} key={el.code}>{el.name}</MenuItem>
                     ))}
@@ -469,11 +471,12 @@ export const InfoBlock = props => {
                 </Grid>
                 <Grid item>
                   <Select
-                    value={info.academicDegree}
+                    value={info.academicDegree || 'none'}
                     onChange={ev => handleSelectChange(ev.target.value, 'academicDegree')}
                     label="Ученая степень"
                     variant="outlined"
                   >
+                    <MenuItem value="none">Не выбрана</MenuItem>
                     {degrees.map(el => (
                       <MenuItem value={el.name} key={el.code}>{el.name}</MenuItem>
                     ))}
@@ -486,11 +489,12 @@ export const InfoBlock = props => {
                 </Grid>
                 <Grid item>
                   <Select
-                    value={info.academicTitle}
+                    value={info.academicTitle || 'none'}
                     onChange={ev => handleSelectChange(ev.target.value, 'academicTitle')}
                     label="Ученое звание"
                     variant="outlined"
                   >
+                    <MenuItem value="none">Не выбрано</MenuItem>
                     {titles.map(el => (
                       <MenuItem value={el.name} key={el.code}>{el.name}</MenuItem>
                     ))}

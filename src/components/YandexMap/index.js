@@ -21,7 +21,7 @@ const YandexMap = props => {
   return (
       <Map
         defaultState={{ center: [55.76, 37.64], zoom: 3 }}
-        style={{ borderRadius: '20px', width: '100%', marginTop: '20px', minHeight: '49%' }}
+        style={{ borderRadius: '20px', width: '100%', marginTop: '20px', minHeight: '50%' }}
         modules={['geocode']}
       >
         <Clusterer
