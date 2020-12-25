@@ -4,6 +4,7 @@ import './index.scss';
 import AuthService from "../../../services/AuthService";
 import TextField from "@material-ui/core/TextField";
 import {Link} from "react-router-dom";
+import { getTime } from '../ChatElement/index';
 
 export const ActiveChat = props => {
   const [inputText, setText] = useState('');
@@ -34,7 +35,7 @@ export const ActiveChat = props => {
               >
                 <span className="author">{msg.username}</span>
                 <span className="text">{msg.message}</span>
-                <span className="time">{msg.natural_timestamp}</span>
+                <span className="time">{getTime(msg.natural_timestamp)}</span>
               </div>
             ))}
           </div>

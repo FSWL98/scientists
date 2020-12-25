@@ -33,12 +33,14 @@ const getMonth = month => {
   }
 };
 
-const getTime = time => {
+export const getTime = time => {
   let result = '';
-  const arr = time.split('.')[0].split(' ');
-  const [year, month, day] = arr[0].split('-');
-  const [hour, minutes, seconds] = arr[1].split(':');
-  result += `${(day + getMonth(month))} в ${hour}:${minutes}`;
+  if (time) {
+    const arr = time.split('.')[0].split(' ');
+    const [year, month, day] = arr[0].split('-');
+    const [hour, minutes, seconds] = arr[1].split(':');
+    result += `${(day + getMonth(month))} в ${hour}:${minutes}`;
+  }
   return result;
 };
 

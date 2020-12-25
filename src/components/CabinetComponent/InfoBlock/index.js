@@ -559,12 +559,12 @@ export const InfoBlock = props => {
               </div>
               {info.dier_sovet && (
                 <div className="item">
-                  <span className="text"><strong>Диссертационный совет -</strong> {info.dier_sovet}</span>
+                  <span className="text">{info.dier_sovet}</span>
                 </div>
               )}
               {info.editorial_boards && (
                 <div className="item">
-                  <span className="text"><strong>Редакционная коллегия -</strong> {info.editorial_boards}</span>
+                  <span className="text">{info.editorial_boards}</span>
                 </div>
               )}
             </>
