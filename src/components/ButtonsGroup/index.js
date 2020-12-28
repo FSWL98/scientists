@@ -93,6 +93,7 @@ export const ButtonsGroup = () => {
           </ul>
           <p>
             Выбор исследователей, представленных на сайте является субъективным и отражает мнение редакторов портала.
+            Для регистрации на портале, Вам необходимо отправить резюме на почту example@mail.ru
           </p>
           <Button className="primary" onClick={() => setHowToModal(false)}>Понятно</Button>
         </div>
