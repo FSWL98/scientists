@@ -7,12 +7,14 @@ import {MessagesComponent} from "../../components/MessagesComponent";
 import { wsURL } from "../../services/baseURL";
 import AuthService from "../../services/AuthService";
 import scientistsService from "../../services/scientistsService";
+import aud from '../../assets/audio/u_edomlenie-9.mp3';
 
 
 export const MessagesPage = props => {
   const [socket, setSocket] = useState(undefined);
   const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
+  const [messagesLoading, setMessagesLoading] = useState(false);
   const [messages, setMessages] = useState([]);
   const messagesRef = useRef(messages);
   const history = useHistory();
@@ -65,6 +67,7 @@ export const MessagesPage = props => {
     return () => {
       if (socket) {
         console.log(socket);
+        setMessagesLoading(true);
         socket.send(JSON.stringify({
           command: 'leave'
         }));
@@ -76,6 +79,7 @@ export const MessagesPage = props => {
   useEffect(() => {
     if (socket) {
       socket.onopen = () => {
+        setMessagesLoading(true);
         socket.send(JSON.stringify({
           command: 'setuser',
           user_id: AuthService.getUserLocal().id
@@ -93,11 +97,17 @@ export const MessagesPage = props => {
       socket.onmessage = e => {
         const data = JSON.parse(e.data);
         if (data.command === 'send') {
+          const audio = new Audio();
+          audio.src = aud;
+          if (data.user_id !== AuthService.getUserLocal().id)
+            audio.autoplay = true;
           const array = messagesRef.current;
           setMessages([data, ...array])
         }
-        else if (data.command === 'get_room_chat_messages')
+        else if (data.command === 'get_room_chat_messages') {
           setMessages(data.messages);
+          setMessagesLoading(false);
+        }
       }
     }
   }, [socket]);
@@ -113,6 +123,7 @@ export const MessagesPage = props => {
           activeChat={activeChat}
           messages={messages}
           sendMessage={sendMessage}
+          messagesLoading={messagesLoading}
         />
       </div>
     </div>

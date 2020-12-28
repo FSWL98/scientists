@@ -28,7 +28,10 @@ export const ActiveChat = props => {
             <Link className="name" to={`/profile/${props.activeChat.friend_id}`}>{props.activeChat.friend_name} {props.activeChat.friend_surname}</Link>
           </div>
           <div className="messages">
-            {props.messages.map((msg, index) => (
+            {props.messagesLoading && (
+              <p>Загрузка...</p>
+            )}
+            {!props.messagesLoading && props.messages.map((msg, index) => (
               <div
                 className={`messages_item ${parseInt(msg.user_id, 10) === AuthService.getUserLocal().id ? 'sent' : 'received'}`}
                 id={index === 0 ? 'last-message' : ''}
@@ -38,6 +41,9 @@ export const ActiveChat = props => {
                 <span className="time">{getTime(msg.natural_timestamp)}</span>
               </div>
             ))}
+            {props.messages.length === 0 && !props.messagesLoading && (
+              <p>Здесь еще нет сообщений</p>
+            )}
           </div>
           <form className="send-message" onSubmit={ev => {
             ev.preventDefault();

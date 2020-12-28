@@ -28,6 +28,7 @@ export const MessagesComponent = props => {
         activeChat={props.activeChat}
         messages={props.messages}
         sendMessage={props.sendMessage}
+        messagesLoading={props.messagesLoading}
       />
     </section>
   );
