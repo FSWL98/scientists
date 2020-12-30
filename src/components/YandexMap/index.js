@@ -4,7 +4,7 @@ import './index.scss';
 import {regions} from "../FindForm/consts";
 
 const YandexMap = props => {
-  const [coords, setCoords] = useState([54.873745, 38.064718]);
+  // получение координатов точки по региону и округу
   const getCoords = point => {
     if (point.region) {
       return regions.find(el => el.code === point.Bigregion).regions.find(el => el.name === point.region).coordinates;
@@ -12,9 +12,7 @@ const YandexMap = props => {
     else if (point.Bigregion) {
       return regions.find(el => el.code === point.Bigregion).coordinates;
     }
-  }
-
-  console.log('im inside provider')
+  };
 
   if (!props.points)
     return <div>Загрузка..</div>;
@@ -51,5 +49,5 @@ const YandexMap = props => {
       </Map>
   )
 };
-
+//подключение необходимых модуляй для карты
 export default withYMaps(YandexMap, true, ['geocode', 'regions']);

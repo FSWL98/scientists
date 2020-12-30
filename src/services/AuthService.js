@@ -2,10 +2,12 @@ import BaseService from "./BaseService";
 import {baseURL} from "./baseURL";
 
 export default class AuthService extends BaseService {
+  // проверка авторизации
   static get isAuthenticated() {
     return !!localStorage.getItem('token');
   }
 
+  // получение данных о текущем пользователе
   static getUserLocal() {
     const userStr = localStorage.getItem('user');
     if (userStr === undefined) {
@@ -19,16 +21,19 @@ export default class AuthService extends BaseService {
     }
   }
 
+  // выход из аккаунта
   static logout() {
     window.location.replace('/');
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   }
 
+  // получение токена
   static getAuthToken() {
     return localStorage.getItem('token');
   }
 
+  // авторизация
   static async login (password, email) {
     const options = {
       method: 'POST',
@@ -57,6 +62,7 @@ export default class AuthService extends BaseService {
     });
   }
 
+  // авторизованный запрос с автоматическим добавлением заголовка Authorization
   static async authRequest (url, options, content = true) {
     options.headers = {
       Authorization: `Token ${this.getAuthToken()}`
@@ -72,6 +78,7 @@ export default class AuthService extends BaseService {
     return this.parseResponse(response, true, 'token');
   }
 
+  // проверка валидности токена
   static async checkAuth () {
     const options = {
       mode: 'cors',

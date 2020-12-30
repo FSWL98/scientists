@@ -2,6 +2,7 @@ import AuthService from "./AuthService";
 import {baseURL} from "./baseURL";
 
 export default class scientistsService extends AuthService {
+  // получение профиля по айди
   static async getScientist (id) {
     const options = {
       method: 'GET',
@@ -14,6 +15,7 @@ export default class scientistsService extends AuthService {
     return response;
   }
 
+  // получение списка новостей
   static async getNews (page, size) {
     const options = {
       method: 'GET',
@@ -26,6 +28,7 @@ export default class scientistsService extends AuthService {
     return response;
   }
 
+  // получение количества новостей
   static async getNewsCount () {
     const options = {
       method: 'GET',
@@ -38,6 +41,7 @@ export default class scientistsService extends AuthService {
     return response;
   }
 
+  // обновление пользователя
   static async patchUser (data, id) {
     const formData = new FormData();
     Object.keys(data).map(el => formData.append(el, data[el]));
@@ -54,6 +58,7 @@ export default class scientistsService extends AuthService {
     return response;
   }
 
+  // создание чат комнаты
   static async createChat(user1_id, user2_id) {
     const formData = new FormData();
     formData.append('user1_id', user1_id);
@@ -71,6 +76,7 @@ export default class scientistsService extends AuthService {
     return response;
   }
 
+  // получение точек для карты
   static async getPoints (big = '', region = '', spec = '', title = '', keyword = '') {
     const options = {
       method: 'GET',
@@ -95,7 +101,7 @@ export default class scientistsService extends AuthService {
     const response = this.request(
       `${baseURL}/api/v1/getpoints/${query}`,
       options,
-    )
+    );
     return await response;
   }
 }

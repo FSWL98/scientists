@@ -25,10 +25,12 @@ export const ButtonsGroup = () => {
   const [howToModal, setHowToModal] = useState(false);
   const history = useHistory();
 
+  // хук жизненного цикла, срабатывающий при маунте компонента
   useEffect(() => {
     setLogged(!!AuthService.getAuthToken());
   }, []);
 
+  // обработка отправки формы входа в систему
   const handleFormSubmit = event => {
     event.preventDefault();
     AuthService.login(modal.password, modal.username)
@@ -43,6 +45,7 @@ export const ButtonsGroup = () => {
   const user = AuthService.getUserLocal();
   return (
     <div className="buttons-group">
+      {/* Всплывающее окно входа в систему */}
       <Dialog open={modal.show} onClose={() => setModal({ show: false, username: '', password: '', error: false })} className="login-dialog">
         <button onClick={() => setModal({ show: false, username: '', password: '', error: false })} className="close">
           <img src={close} alt="Закрыть" />
@@ -83,6 +86,7 @@ export const ButtonsGroup = () => {
           Для получения логина и пароля Вам необходимо отправить резюме на почту example@mail.ru
         </p>
       </Dialog>
+      {/* Всплывающее окно "как это работае" */}
       <Dialog open={howToModal} onClose={() => setHowToModal(false)}>
         <div className="how-to-modal">
           <h4>Как это работает?</h4>

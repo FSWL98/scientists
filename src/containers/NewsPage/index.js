@@ -12,6 +12,7 @@ export const NewsPage = props => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // хук жизненного цикла, срабатывающий при изменении состояния page
   useEffect(() => {
     setLoading(true);
     const newsRequest = scientistsService.getNews(page - 1, 9);
@@ -22,7 +23,7 @@ export const NewsPage = props => {
         setCount(countResponse.count);
         setLoading(false);
       })
-  }, [page])
+  }, [page]);
 
   return (
     <div className="news-page">
@@ -43,6 +44,7 @@ export const NewsPage = props => {
         )}
         {!loading && (
           <div className="news-page_content__news">
+            {/* перебор всех новостей */}
             {news.map(el => (
               <Link className="element" key={el.id} to={`/news/${el.id}`}>
                 <span className="news-date">{el.date}</span>

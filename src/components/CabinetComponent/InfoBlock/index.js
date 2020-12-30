@@ -62,7 +62,7 @@ export const InfoBlock = props => {
       minWidth: 128,
       maxWidth: 512,
     }
-  })
+  });
   const [imageRef, setImageRef] = useState(null);
   const [currentCropped, setCurrentCropped] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -96,6 +96,7 @@ export const InfoBlock = props => {
     });
   };
 
+  // удаление публикации
   const deletePublication = index => {
     setInfo({
       ...info,
@@ -103,6 +104,7 @@ export const InfoBlock = props => {
     });
   };
 
+  // добавление новой публикации
   const addPublication = () => {
     setInfo({
       ...info,
@@ -110,12 +112,15 @@ export const InfoBlock = props => {
     });
   };
 
+  // обработка изменения поля ключевых слов
   const handleKeyWordsChange = value => {
     setInfo({
       ...info,
       keyWords: value,
     });
   };
+
+  // обработка изменения поля публикаций
   const handlePublicationChange = (value, id) => {
     setInfo({
       ...info,
@@ -130,14 +135,15 @@ export const InfoBlock = props => {
   const handleImageLoaded = image => {
     setImageRef(image);
     return false;
-  }
+  };
 
   const makeClientCrop = crop => {
     if (imageRef && crop.width && crop.height) {
       getCroppedImage(imageRef, crop).then(response => setCurrentCropped(response));
     }
-  }
+  };
 
+  // обработка кроппированной картинки
   const getCroppedImage = (image, crop) => {
     const canvas = document.createElement('canvas');
     const scaleX = image.naturalWidth / image.width;
@@ -168,12 +174,13 @@ export const InfoBlock = props => {
       }, 'image/*');
     })
 
-  }
+  };
 
   const handleCropComplete = crop => {
     makeClientCrop(crop);
-  }
+  };
 
+  // обработка отправки формы
   const handleSave = ev => {
     ev.preventDefault();
     setLoading(true);
@@ -201,7 +208,7 @@ export const InfoBlock = props => {
       position: info.position || '',
       hide_phone: info.hide_phone,
       hide_email: info.hide_email
-    }
+    };
     if (info.newImageFile) {
       data.image = new File(
         [info.newImageFile],
@@ -219,12 +226,13 @@ export const InfoBlock = props => {
       setLoading(false);
     })
       .catch(() => setLoading(false));
-  }
+  };
 
   const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({
     maxFiles: 1,
   });
 
+  // хук жизненного цикла, срабатывающий при добавлении файла в поле
   useEffect(() => {
     if (acceptedFiles.length === 1) {
       setCropModal({
@@ -237,8 +245,7 @@ export const InfoBlock = props => {
           minWidth: 128,
           maxWidth: 512,
         }
-      })
-      console.log(acceptedFiles[0]);
+      });
     }
   }, [acceptedFiles])
 

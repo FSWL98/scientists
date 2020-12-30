@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../../../assets/logo512.png';
 import './index.scss';
 
+// парсер месяца из числового формата в текстовый
 const getMonth = month => {
   switch (month) {
     case '01':
@@ -33,9 +34,11 @@ const getMonth = month => {
   }
 };
 
+// парсер даты из формата timestamp в читаемый формат
 export const getTime = time => {
   let result = '';
   const date = new Date();
+  // получение разницы в часах между UTC и часовым поясом пользователя
   const offset = Math.ceil(date.getTimezoneOffset() / -60);
   if (time) {
     const arr = time.split('.')[0].split(' ');

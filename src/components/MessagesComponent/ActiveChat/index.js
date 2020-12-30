@@ -9,19 +9,23 @@ import { getTime } from '../ChatElement/index';
 export const ActiveChat = props => {
   const [inputText, setText] = useState('');
 
+  // хук жизненного цикла, срабатывающий при маунте компонента
   useEffect(() => {
     const lastMessage = document.getElementById('last-message');
     if (lastMessage)
       lastMessage.scrollIntoView();
   }, []);
+
   return (
     <section className="active-chat">
+      {/* Если нет выбранного чата*/}
       {!props.activeChat && (
         <p className="choose-chat">
           Выберите чат чтобы начать диалог
         </p>
       )}
       {!!props.activeChat && (
+        // Если чат выбран
         <>
           <div className="person">
             <img src={props.activeChat.friend_photo || logo} alt="avatar" />

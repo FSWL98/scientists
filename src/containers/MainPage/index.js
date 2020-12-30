@@ -16,10 +16,12 @@ export const MainPage = props => {
   const [points, setPoints] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
+  // хук жизненного цикла, срабатывающий при маунте компонента
   useEffect(() => {
     getPoints();
-  }, [])
+  }, []);
 
+  // функция получения точек для карты
   const getPoints = () => {
     setLoading(true);
     scientistsService.getPoints(currentDistrict.code, currentRegion.name, currentMajor.name, currentDegree.name, keyWords.split(' ').join(';'))
@@ -27,7 +29,7 @@ export const MainPage = props => {
         setPoints(response);
         setLoading(false);
     });
-  }
+  };
   return (
     <div className="main-page">
       <SideBlock

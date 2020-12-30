@@ -15,9 +15,11 @@ function App() {
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
+    // проверка наличия токена в local storage
     if (AuthService.getAuthToken())
       AuthService.checkAuth().then(response => {
         if (response.status !== 200) {
+          // удаление токена, если он оказался невалидным
           AuthService.logout();
           window.location.reload();
         }
@@ -30,6 +32,7 @@ function App() {
 
   return (
     <>
+      {/* Всплывающее окно на маленьких экранах, предупреждающее о возможных проблемах*/}
       <Dialog open={modal} onClose={() => setModal(false)}>
         <div className="not-working-modal">
           <h4>Внимание!</h4>
@@ -39,6 +42,7 @@ function App() {
           <Button variant="contained" className="primary" onClick={() => setModal(false)}>Понял</Button>
         </div>
       </Dialog>
+      {/* Роутер приложения */}
       <BrowserRouter>
         <Switch>
           <Route exact path="/main" component={MainPage} />

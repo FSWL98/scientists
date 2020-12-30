@@ -19,24 +19,31 @@ export const MessagesPage = props => {
   const messagesRef = useRef(messages);
   const history = useHistory();
 
+  // хук жизненного цикла, срабатывающий при изменении состояния messages
   useEffect(() => {
     messagesRef.current = messages;
   }, [messages]);
 
+  // хук жизненного цикла, срабатывающий при маунте компонента
   useEffect(() => {
+    // объявление сокета списка комнат
     const chatsSocket = new WebSocket(`${wsURL}/roomlist/`);
     chatsSocket.onopen = () => {
       console.log('chats list connection opened');
+      // установка id подключившегося к сокету пользователя
       chatsSocket.send(JSON.stringify({
         command: 'setuser',
         user_id: AuthService.getUserLocal().id,
       }));
+      // запрос на получение списка комнат
       chatsSocket.send(JSON.stringify({
         command: 'get_list'
       }))
     };
+    // обновление состояния при получении сообщения от сокета
     chatsSocket.onmessage = e => {
       const data = JSON.parse(e.data);
+      // изменение только в случае получения конкретной команды
       if (data.command === 'get_list') {
         setChats(data.roomlist);
         if (props.match.params.chatId) {
@@ -46,11 +53,13 @@ export const MessagesPage = props => {
     };
   }, []);
 
+  // обработчик клика по чату
   const handleChatSelect = id => {
     history.push(`/messages/${id}`);
     setActiveChat(chats.find(el => parseInt(el.room_id, 10) === parseInt(id, 10)));
   };
 
+  // функция отправки сообщения в чат
   const sendMessage = msg => {
     socket.send(JSON.stringify({
       command: 'send',
@@ -59,6 +68,7 @@ export const MessagesPage = props => {
     }));
   };
 
+  // хук жизненного цикла, срабатывающий при изменении параметра chatId в query адресной строки
   useEffect(() => {
     setMessages([]);
     setSocket(new WebSocket(`${wsURL}/chat/${props.match.params.chatId}/`));
@@ -74,6 +84,7 @@ export const MessagesPage = props => {
     }
   }, [props.match.params.chatId]);
 
+  // хук жизненого цикла, срабатывающий при изменении состояния socket (после предыдущего хука)
   useEffect(() => {
     if (socket) {
       socket.onopen = () => {

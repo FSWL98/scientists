@@ -9,7 +9,9 @@ export const NewsItemPage = props => {
   const [item, setItem] = useState({});
   const [isLoading, setLoading] = useState(true);
 
+  // хук жизненного цикла, срабатывающий при маунте компонента
   useEffect(() => {
+    // отправка запроса на получение конкретной новости
     const request = fetch(`${baseURL}/api/v1/news/${props.match.params.newsID}/`, {
       method: 'GET',
       mode: 'cors',

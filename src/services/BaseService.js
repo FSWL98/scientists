@@ -1,4 +1,5 @@
 export default class BaseService {
+  // парсер ответа от сервера
   static async parseResponse(response, checkUnauthorized, tokenName) {
     const { status } = response;
 
@@ -34,6 +35,7 @@ export default class BaseService {
     return parsedResponse;
   }
 
+  // запрос к серверу
   static async request(url, options) {
     return fetch(url, options).then(response =>
       this.parseResponse(response, false),

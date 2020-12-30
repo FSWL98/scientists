@@ -7,6 +7,7 @@ export const NewsBlock = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // хук жизненного цикла, срабатывающий при маунте компонента
   useEffect(() => {
     setLoading(true);
     scientistsService.getNews(0, 3).then(response => {
@@ -19,7 +20,7 @@ export const NewsBlock = () => {
       <h4>Новости науки</h4>
       <div className="news-block_container">
         {news.map((el, index) => {
-          if (index < 6) {
+          if (index < 3) {
             return (
               <Link className="news-block_element" key={el.id} to={`/news/${el.id}`}>
                 <span className="news-date">{el.date}</span>

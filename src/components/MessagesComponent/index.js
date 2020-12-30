@@ -7,6 +7,7 @@ import AuthService from "../../services/AuthService";
 export const MessagesComponent = props => {
   const [isLogged, setLogged] = useState(false);
 
+  // хук жизненного цикла, срабатывающий при маунте компонента
   useEffect(() => {
     setLogged(!!AuthService.getAuthToken());
   }, []);

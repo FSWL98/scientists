@@ -15,6 +15,7 @@ export const CabinetComponent = props => {
   });
   const [gettingRoomId, setGettingRoomId] = useState(false);
   const history = useHistory();
+  // хук жизненного цикла, срабатывающий при изменении входных параметров
   useEffect(() => {
     setDataState({
       ...dataState,
