@@ -76,6 +76,23 @@ export default class scientistsService extends AuthService {
     return response;
   }
 
+  // Смена пароля
+  static async changePassword(oldPassword, newPassword) {
+    const formData = new FormData();
+    formData.append('old_password', oldPassword);
+    formData.append('new_password', newPassword);
+    const options = {
+      method: 'PUT',
+      mode: 'cors',
+      body: formData
+    };
+    const response = this.authRequest(
+      `${baseURL}/api/v1/pass/change-password/`,
+      false
+    );
+    return response;
+  }
+
   // получение точек для карты
   static async getPoints (big = '', region = '', spec = '', title = '', keyword = '') {
     const options = {

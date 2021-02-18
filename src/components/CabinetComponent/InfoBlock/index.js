@@ -66,6 +66,11 @@ export const InfoBlock = props => {
   const [imageRef, setImageRef] = useState(null);
   const [currentCropped, setCurrentCropped] = useState(null);
   const [isLoading, setLoading] = useState(false);
+  const [passwordReset, setPasswordReset] = useState({
+    oldError: false,
+    newError: false,
+    isLoading: false
+  });
   useEffect(() => {
     setInfo({
       ...props.info,
@@ -231,6 +236,44 @@ export const InfoBlock = props => {
   const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({
     maxFiles: 1,
   });
+
+  // Отправка формы смены пароля
+  const changePassword = ev => {
+    ev.preventDefault();
+    setPasswordReset({
+      ...passwordReset,
+      isLoading: true
+    });
+    const newPassword = ev.target['new-password'].value;
+    const oldPassword = ev.target['old-password'].value;
+    if (newPassword === oldPassword) {
+      setPasswordReset({
+        newError: true,
+        isLoading: false,
+        oldError: false
+      });
+      return;
+    }
+    scientistsService.changePassword(ev.target['old-password'].value, ev.target['new-password'].value)
+      .then(response => {
+        if (response.status === 'success')
+          setPasswordReset({
+            oldError: false,
+            newError: false,
+            isLoading: false
+          })
+      })
+      .catch(response => {
+        if (response.old_password)
+          setPasswordReset({
+            oldError: true,
+            newError: false,
+            isLoading: false
+          });
+        else
+          alert('Внутренняя ошибка сервера')
+      });
+  };
 
   // хук жизненного цикла, срабатывающий при добавлении файла в поле
   useEffect(() => {
@@ -675,6 +718,35 @@ export const InfoBlock = props => {
         </Button>
       )}
       </form>
+      {props.edit && (
+        <section className="info-block_reset-password">
+          <span className="section-title">Смена пароля</span>
+          <form onSubmit={changePassword}>
+            <TextField
+              id="old-password"
+              error={passwordReset.newError}
+              helperText={passwordReset.newError ? "Неверный пароль" : ""}
+              label="Старый пароль"
+              type="password"
+            />
+            <TextField
+              id="new-password"
+              label="Новый пароль"
+              type="password"
+              error={passwordReset.oldError}
+              helperText={passwordReset.oldError ? "Пароли совпадают" : ""}
+            />
+            <Button
+              variant="contained"
+              className="primary"
+              type="submit"
+              disabled={passwordReset.isLoading}
+            >
+              {passwordReset.isLoading ? "Сохранение пароля..." : "Изменить пароль"}
+            </Button>
+          </form>
+        </section>
+      )}
     </section>
   )
 };

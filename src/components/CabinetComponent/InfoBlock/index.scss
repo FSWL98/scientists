@@ -1,5 +1,20 @@
 .info-block {
   padding: 20px 60px;
+  &_reset-password{
+    margin-top: 40px;
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      .MuiInputBase-root {
+        width: 270px;
+        margin-bottom: 20px;
+      }
+      button {
+        margin-top: 20px;
+      }
+    }
+  }
   section {
     margin-bottom: 40px;
   }
