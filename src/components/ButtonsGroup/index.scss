@@ -190,6 +190,29 @@
       width: 60%;
       text-align: center;
     }
+    .forgot-password {
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      align-self: start;
+      height: fit-content;
+      background: none;
+      margin-left: 24px;
+      color: #596eef;
+      cursor: pointer;
+      font-weight: 600;
+      font-style: italic;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .reset_confirm {
+      width: 70%;
+      button {
+        padding: 12px 21px;
+        border-radius: 24px;
+      }
+    }
   }
 }
 .how-to-modal {

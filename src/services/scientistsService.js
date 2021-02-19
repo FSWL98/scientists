@@ -94,6 +94,39 @@ export default class scientistsService extends AuthService {
     return response;
   }
 
+  // Запрос сброса пароля
+  static async resetPassword(email) {
+    const formData = new FormData();
+    formData.append('email', email);
+    const options = {
+      method: 'POST',
+      mode: 'cors',
+      body: formData
+    };
+    const response = this.request(
+      `${baseURL}/api/v1/pass/password_reset/`,
+      options
+    );
+    return response;
+  }
+
+  // Сброс пароля
+  static async setNewPassword(password, token) {
+    const formData = new FormData();
+    formData.append('token', token);
+    formData.append('password', password);
+    const options = {
+      method: 'POST',
+      mode: 'cors',
+      body: formData
+    };
+    const response = this.request(
+      `${baseURL}/api/v1/pass/password_reset/confirm/`,
+      options
+    );
+    return response;
+  }
+
   // получение точек для карты
   static async getPoints (big = '', region = '', spec = '', title = '', keyword = '') {
     const options = {

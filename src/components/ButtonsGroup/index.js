@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import './index.scss'
 import news from "../../assets/news.png";
-import forums from "../../assets/forums.png";
 import how from "../../assets/how.png"
 import Button from "@material-ui/core/Button";
 import AuthService from "../../services/AuthService";
@@ -13,6 +12,7 @@ import logout from '../../assets/logout.svg';
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
 import { useHistory } from 'react-router-dom';
+import scientistsService from "../../services/scientistsService";
 
 export const ButtonsGroup = () => {
   const [isLogged, setLogged] = useState(false);
@@ -21,6 +21,7 @@ export const ButtonsGroup = () => {
     username: '',
     password: '',
     error: false,
+    step: 'login'
   });
   const [howToModal, setHowToModal] = useState(false);
   const history = useHistory();
@@ -33,58 +34,111 @@ export const ButtonsGroup = () => {
   // обработка отправки формы входа в систему
   const handleFormSubmit = event => {
     event.preventDefault();
-    AuthService.login(modal.password, modal.username)
-      .then(response => {
-        history.go('/cabinet');
-      })
-      .catch(err => {
-        setModal({...modal, password: '', error: true })
-      });
+    if (modal.step === 'login') {
+      AuthService.login(modal.password, modal.username)
+        .then(response => {
+          history.go('/cabinet');
+        })
+        .catch(err => {
+          setModal({...modal, password: '', error: true })
+        });
+    }
+    else if (modal.step === 'reset') {
+      scientistsService.resetPassword(modal.username)
+        .then(response => {
+          console.log(response);
+          setModal({
+            username: '',
+            password: '',
+            step: 'info',
+            show: true,
+            error: false
+          })
+        })
+    }
   };
 
   const user = AuthService.getUserLocal();
   return (
     <div className="buttons-group">
       {/* Всплывающее окно входа в систему */}
-      <Dialog open={modal.show} onClose={() => setModal({ show: false, username: '', password: '', error: false })} className="login-dialog">
-        <button onClick={() => setModal({ show: false, username: '', password: '', error: false })} className="close">
+      <Dialog open={modal.show} onClose={() => setModal({ show: false })} className="login-dialog">
+        <button onClick={() => setModal({ show: false })} className="close">
           <img src={close} alt="Закрыть" />
         </button>
         <img src={logo} alt="picture" className="picture"/>
-        <form onSubmit={ev => handleFormSubmit(ev)}>
-          <TextField
-            value={modal.username}
-            label="E-mail"
-            variant="outlined"
-            onChange={ev=> setModal({...modal, username: ev.target.value, error: false })}
-            type="email"
-            required
-          />
-          <TextField
-            value={modal.password}
-            label="Пароль"
-            variant="outlined"
-            onChange={ev => setModal({...modal, password: ev.target.value, error: false })}
-            type="password"
-            required
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            className="primary"
-            disabled={modal.username === '' || modal.password === '' || modal.error}
-          >
-            Войти в систему
-          </Button>
-        </form>
+        {modal.step !== 'info' && (
+          <form onSubmit={ev => handleFormSubmit(ev)}>
+            <TextField
+              value={modal.username}
+              label="E-mail"
+              variant="outlined"
+              onChange={ev=> setModal({...modal, username: ev.target.value, error: false })}
+              type="email"
+              required
+            />
+            {modal.step === 'login' && (
+              <>
+                <TextField
+                  value={modal.password}
+                  label="Пароль"
+                  variant="outlined"
+                  onChange={ev => setModal({...modal, password: ev.target.value, error: false })}
+                  type="password"
+                  required
+                />
+                <button
+                  className="forgot-password"
+                  onClick={() => {
+                    setModal({
+                      show: true,
+                      username: '',
+                      password: '.',
+                      error: false,
+                      step: 'reset'
+                    })
+                  }}
+                >
+                  Забыли пароль?
+                </button>
+              </>
+            )}
+            <Button
+              type="submit"
+              variant="contained"
+              className="primary"
+              disabled={modal.username === '' || modal.password === '' || modal.error}
+            >
+              {modal.step === 'login' ? 'Войти в систему' : 'Сбросить пароль'}
+            </Button>
+          </form>
+        )}
+        {modal.step === 'info' && (
+          <div className="reset_confirm">
+            <p>
+              Если почта введена верно, то на нее отправлено письмо со ссылкой на сброс пароля. Для завершения сброса пароля, пожалуйста, пройдите по ссылке.
+            </p>
+            <Button
+              className="primary"
+              variant="contained"
+              onClick={() => setModal({
+                show: false
+              })}
+            >
+              Понятно
+            </Button>
+          </div>
+        )}
         {modal.error && (
           <p className="error-text">
             Произошла ошибка при входе. Возможно, Вы ввели неверные данные или сервер сейчас недоступен. Пожалуйста, попробуйте снова или обратитесь в службу поддержки.
           </p>
         )}
-        <p className="help-text">
-          Для получения логина и пароля Вам необходимо отправить резюме на почту example@mail.ru
-        </p>
+        {modal.step === 'login' && (
+          <p className="help-text">
+            Для получения логина и пароля Вам необходимо отправить резюме на почту example@mail.ru
+          </p>
+        )}
       </Dialog>
       {/* Всплывающее окно "как это работае" */}
       <Dialog open={howToModal} onClose={() => setHowToModal(false)}>
@@ -105,7 +159,7 @@ export const ButtonsGroup = () => {
       <Button className="default" onClick={() => setHowToModal(true)}><img src={how}/>Как это работает?</Button>
       <Link className="default" to="/news"><img src={news}/><span>Новости</span></Link>
       {!isLogged && (
-        <Button className="primary" onClick={() => setModal({ show: true, username: '', password: '' })}>Войти в систему</Button>
+        <Button className="primary" onClick={() => setModal({ show: true, username: '', password: '', step: 'login', error: false })}>Войти в систему</Button>
       )}
       {isLogged && (
         <div className="logged-button">

@@ -10,6 +10,7 @@ import {NewsPage} from "./containers/NewsPage";
 import {MessagesPage} from "./containers/MessagesPage";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
+import {ResetPage} from "./containers/ResetPage";
 
 function App() {
   const [modal, setModal] = useState(false);
@@ -53,6 +54,7 @@ function App() {
           <Route exact path="/news/:newsID" component={NewsItemPage} />
           <Route exact path="/messages" component={MessagesPage} />
           <Route exact path="/messages/:chatId" component={MessagesPage} />
+          <Route exact path="/reset_password/" component={ResetPage} />
           <Redirect from="/" to="/main"/>
           <Redirect from="/scientists" to="/main"/>
         </Switch>
