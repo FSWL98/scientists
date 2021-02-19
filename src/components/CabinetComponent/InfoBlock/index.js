@@ -69,7 +69,8 @@ export const InfoBlock = props => {
   const [passwordReset, setPasswordReset] = useState({
     oldError: false,
     newError: false,
-    isLoading: false
+    isLoading: false,
+    saved: false
   });
   useEffect(() => {
     setInfo({
@@ -250,25 +251,44 @@ export const InfoBlock = props => {
       setPasswordReset({
         newError: true,
         isLoading: false,
-        oldError: false
+        oldError: false,
+        saved: false
       });
       return;
     }
     scientistsService.changePassword(ev.target['old-password'].value, ev.target['new-password'].value)
       .then(response => {
-        if (response.status === 'success')
+        if (response.status === 'success') {
           setPasswordReset({
             oldError: false,
             newError: false,
-            isLoading: false
+            isLoading: false,
+            saved: true
+          });
+          setTimeout(() => setPasswordReset({
+            oldError: false,
+            newError: false,
+            isLoading: false,
+            saved: false
+          }), 2000);
+        }
+        if (response.error) {
+          setPasswordReset({
+            oldError: true,
+            newError: false,
+            isLoading: false,
+            saved: false
           })
+        }
       })
       .catch(response => {
+        console.log(response);
         if (response.old_password)
           setPasswordReset({
             oldError: true,
             newError: false,
-            isLoading: false
+            isLoading: false,
+            saved: false
           });
         else
           alert('Внутренняя ошибка сервера')
@@ -290,7 +310,7 @@ export const InfoBlock = props => {
         }
       });
     }
-  }, [acceptedFiles])
+  }, [acceptedFiles]);
 
   if (!info.id)
     return '';
@@ -724,8 +744,8 @@ export const InfoBlock = props => {
           <form onSubmit={changePassword}>
             <TextField
               id="old-password"
-              error={passwordReset.newError}
-              helperText={passwordReset.newError ? "Неверный пароль" : ""}
+              error={passwordReset.oldError}
+              helperText={passwordReset.oldError ? "Неверный пароль" : ""}
               label="Старый пароль"
               type="password"
             />
@@ -733,16 +753,16 @@ export const InfoBlock = props => {
               id="new-password"
               label="Новый пароль"
               type="password"
-              error={passwordReset.oldError}
-              helperText={passwordReset.oldError ? "Пароли совпадают" : ""}
+              error={passwordReset.newError}
+              helperText={passwordReset.newError ? "Пароли совпадают" : ""}
             />
             <Button
               variant="contained"
               className="primary"
               type="submit"
-              disabled={passwordReset.isLoading}
+              disabled={passwordReset.isLoading || passwordReset.saved}
             >
-              {passwordReset.isLoading ? "Сохранение пароля..." : "Изменить пароль"}
+              {passwordReset.isLoading ? "Сохранение пароля..." : passwordReset.saved ? "Пароль изменен" : "Изменить пароль"}
             </Button>
           </form>
         </section>

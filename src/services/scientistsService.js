@@ -88,6 +88,7 @@ export default class scientistsService extends AuthService {
     };
     const response = this.authRequest(
       `${baseURL}/api/v1/pass/change-password/`,
+      options,
       false
     );
     return response;

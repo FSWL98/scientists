@@ -64,6 +64,7 @@ export default class AuthService extends BaseService {
 
   // авторизованный запрос с автоматическим добавлением заголовка Authorization
   static async authRequest (url, options, content = true) {
+    console.log(this.getAuthToken());
     options.headers = {
       Authorization: `Token ${this.getAuthToken()}`
     };
