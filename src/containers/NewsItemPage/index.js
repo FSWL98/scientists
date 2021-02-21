@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './index.scss';
-import logo from '../../assets/Logo.svg';
+import logo from '../../assets/logo.svg';
 import { ButtonsGroup } from "../../components/ButtonsGroup";
 import { Link } from "react-router-dom";
 import {baseURL} from "../../services/baseURL";

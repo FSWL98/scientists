@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.scss';
-import logo from '../../assets/Logo.svg';
+import logo from '../../assets/logo.svg';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';

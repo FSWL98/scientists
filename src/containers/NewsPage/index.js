@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './index.scss';
 import scientistsService from "../../services/scientistsService";
 import Pagination from '@material-ui/lab/Pagination';
-import logo from "../../assets/Logo.svg";
+import logo from "../../assets/logo.svg";
 import {ButtonsGroup} from "../../components/ButtonsGroup";
 import {Link} from "react-router-dom";
 
