@@ -23,6 +23,7 @@ import {FormControl} from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import scientistsService from "../../../services/scientistsService";
 import AuthService from "../../../services/AuthService";
+import {validatePassword} from "../../../utils/passwordValidation";
 
 export const InfoBlock = props => {
   const [info, setInfo] = useState({
@@ -249,9 +250,18 @@ export const InfoBlock = props => {
     const oldPassword = ev.target['old-password'].value;
     if (newPassword === oldPassword) {
       setPasswordReset({
-        newError: true,
+        newError: 'Пароли совпадают',
         isLoading: false,
         oldError: false,
+        saved: false
+      });
+      return;
+    }
+    if (!validatePassword(newPassword)) {
+      setPasswordReset({
+        newError: false,
+        isLoading: false,
+        oldError: 'Пароль должен состоять минимум из 8 символов, содержать одну букву, одну цифру и не должен содеражть символы "^", "-", "(", ")", "/", " "',
         saved: false
       });
       return;
@@ -753,8 +763,8 @@ export const InfoBlock = props => {
               id="new-password"
               label="Новый пароль"
               type="password"
-              error={passwordReset.newError}
-              helperText={passwordReset.newError ? "Пароли совпадают" : ""}
+              error={!!passwordReset.newError}
+              helperText={passwordReset.newError || ""}
             />
             <Button
               variant="contained"

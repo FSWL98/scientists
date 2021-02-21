@@ -24,6 +24,9 @@ button {
   &.primary {
     background-color: #596EEF;
     color: white;
+    &[disabled="true"] {
+      background: #8c8c8c;
+    }
     &:hover {
       background-color: #394ECF;
       transition: background-color 0.3s;

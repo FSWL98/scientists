@@ -37,6 +37,7 @@ const getMonth = month => {
 // парсер даты из формата timestamp в читаемый формат
 export const getTime = time => {
   let result = '';
+  console.log(time);
   const date = new Date();
   // получение разницы в часах между UTC и часовым поясом пользователя
   const offset = Math.ceil(date.getTimezoneOffset() / -60);

@@ -104,7 +104,7 @@ export default class scientistsService extends AuthService {
       body: formData
     };
     const response = this.request(
-      `${baseURL}/api/v1/pass/password_reset/`,
+      `${baseURL}/api/v1/password_reset/`,
       options
     );
     return response;
@@ -121,7 +121,7 @@ export default class scientistsService extends AuthService {
       body: formData
     };
     const response = this.request(
-      `${baseURL}/api/v1/pass/password_reset/confirm/`,
+      `${baseURL}/api/v1/password_reset/confirm/`,
       options
     );
     return response;

@@ -87,20 +87,6 @@ export const ButtonsGroup = () => {
                   type="password"
                   required
                 />
-                <button
-                  className="forgot-password"
-                  onClick={() => {
-                    setModal({
-                      show: true,
-                      username: '',
-                      password: '.',
-                      error: false,
-                      step: 'reset'
-                    })
-                  }}
-                >
-                  Забыли пароль?
-                </button>
               </>
             )}
             <Button
@@ -111,6 +97,20 @@ export const ButtonsGroup = () => {
             >
               {modal.step === 'login' ? 'Войти в систему' : 'Сбросить пароль'}
             </Button>
+            <button
+              className="forgot-password"
+              onClick={() => {
+                setModal({
+                  show: true,
+                  username: '',
+                  password: '.',
+                  error: false,
+                  step: 'reset'
+                })
+              }}
+            >
+              Забыли пароль?
+            </button>
           </form>
         )}
         {modal.step === 'info' && (

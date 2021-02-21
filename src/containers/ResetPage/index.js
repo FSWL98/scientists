@@ -12,6 +12,7 @@ import close from "../../assets/Close.svg";
 import logo from "../../assets/pablita-finance 1.png";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import {validatePassword} from "../../utils/passwordValidation";
 
 export const ResetPage = props => {
   const [currentDistrict, setDistrict] = useState({});
@@ -25,13 +26,17 @@ export const ResetPage = props => {
     show: true,
     password: '',
     repeatPassword: '',
-    error: false
+    error: false,
+    passError: false,
+    isLoading: false
   });
   const history = useHistory();
 
   const handleChange = (value, field) => {
     setModal({
       ...modal,
+      error: false,
+      passError: false,
       [field]: value
     })
   };
@@ -53,15 +58,41 @@ export const ResetPage = props => {
 
   const resetPassword = ev => {
     ev.preventDefault();
+    setModal({
+      ...modal,
+      isLoading: true
+    });
     if (modal.password !== modal.repeatPassword) {
       setModal({
         ...modal,
-        error: true
+        error: 'Пароли не совпадают'
+      });
+      return;
+    }
+    if (!validatePassword(modal.password)) {
+      setModal({
+        ...modal,
+        passError: 'Пароль должен состоять минимум из 8 символов, содержать одну букву, одну цифру и не должен содеражть символы "^", "-", "(", ")", "/", " "'
       });
       return;
     }
     scientistsService.setNewPassword(modal.password, props.location.search.split('=')[1])
-      .then(response => console.log(response));
+      .then(response => {
+        if (response.status === 'OK')
+          history.push('/main');
+        else {
+          setModal({
+            ...modal,
+            isLoading: false,
+            error: "Токен для смены пароля неверный. Возможно, вы не запрашивали сброс пароля или время действия токена истекло"
+          })
+        }
+      })
+      .catch(() => setModal({
+        ...modal,
+        isLoading: false,
+        error: "Внутренняя ошибка сервера. Пожалуйста, попробуйте еще раз или обратитесь в службу поддержки"
+      }));
   };
 
   return (
@@ -72,13 +103,15 @@ export const ResetPage = props => {
         </button>
         <img src={logo} alt="picture" className="picture"/>
         <h3>Сброс пароля</h3>
-        <form>
+        <form onSubmit={resetPassword}>
           <TextField
             value={modal.password}
             label="Новый пароль"
             variant="outlined"
             onChange={ev => handleChange(ev.target.value, 'password')}
             type="password"
+            error={!!modal.passError}
+            helperText={modal.passError || false}
             required
           />
           <TextField
@@ -87,16 +120,17 @@ export const ResetPage = props => {
             variant="outlined"
             onChange={ev => handleChange(ev.target.value, 'repeatPassword')}
             type="password"
-            error={modal.error}
-            helperText={modal.error ? "Пароли не совпадают" : ""}
+            error={!!modal.error}
+            helperText={modal.error || ""}
             required
           />
           <Button
             type="submit"
             variant="contained"
             className="primary"
+            disabled={modal.isLoading}
           >
-            Сбросить пароль
+            {modal.isLoading ? "Подождите, идет сброс пароля" : "Сбросить пароль"}
           </Button>
         </form>
       </Dialog>
