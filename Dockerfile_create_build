@@ -1,0 +1,22 @@
+FROM node:10.15.3-alpine
+
+WORKDIR /app
+ 
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+ 
+RUN npm install npm@6.4.1
+RUN rm -rf /usr/local/lib/node_modules/npm
+RUN mv node_modules/npm /usr/local/lib/node_modules/npm
+ 
+COPY package*.json ./
+RUN npm install
+#RUN npm install react-scripts@3.4.1 -g 
+ 
+# add app
+COPY . ./
+ 
+RUN npm run build
+ 
+# start app
+CMD ["echo", "BUILD CREATED SUCCESSFULLY!!!!!!!!!"]
